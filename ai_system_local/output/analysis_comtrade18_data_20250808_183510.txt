@@ -1,0 +1,66 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:35:10
+
+Analiz sonuçları aşağıda verilmiştir:
+
+### Arıza Senaryoları
+
+#### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+* **Olasılık:** Yüksek
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.2006 saniye
+ + TRIP Zamanı: 0.2013 saniye
+ + Kesici Açılma Zamanı: 0.2019 saniye
+ + PICK UP-TRIP Süresi: 7 ms (normalde 20-500 ms)
+ + TRIP-Açılma Süresi: 6 ms (normalde 10-100 ms)
+* **Kanıt:**
+ + "67-2 (faz kisa devre) PICK UP" sinyali = 1
+ + "67-2 (faz kisa devre) TRIP" sinyali = 1
+ + Kesici Durumu: Açık
+ + Akım/Gerilim Değişimleri: IL3'te ani artış, U1'de dengesizlik
+* **Analiz:** Fazlar arası kısa devre arızası. Koruma rölesi tarafından hızlıca tespit ediliyor ve kesici açıldı.
+
+#### 2. Toprak Arızası (AN, BN, CN)
+
+* **Olasılık:** Orta
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.2025 saniye
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: 0.2031 saniye
+ + PICK UP-TRIP Süresi: Yok (normalde 20-500 ms)
+ + TRIP-Açılma Süresi: 6 ms (normalde 10-100 ms)
+* **Kanıt:**
+ + "67-N1" PICK UP sinyali = 1
+ + TRIP Sinyali yok
+ + Kesici Durumu: Açık
+ + Akım/Gerilim Değişimleri: Io'da artış, Uo'da dengesizlik
+* **Analiz:** Toprak arızası. Koruma rölesi tarafından tespit ediliyor ancak kesici açılmıyor.
+
+#### 3. Faz Örtü Arızası (AN, BN, CN)
+
+* **Olasılık:** Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: Yok
+ + TRIP Zamanı: 0.2019 saniye
+ + Kesici Açılma Zamanı: 0.2025 saniye
+ + PICK UP-TRIP Süresi: Yok (normalde 20-500 ms)
+ + TRIP-Açılma Süresi: 6 ms (normalde 10-100 ms)
+* **Kanıt:**
+ + TRIP Sinyali = 1
+ + "67-N1" PICK UP sinyali yok
+ + Kesici Durumu: Açık
+ + Akım/Gerilim Değişimleri: IL3'te ani artış, Uo'da dengesizlik
+* **Analiz:** Faz örtü arızası. Koruma rölesi tarafından tespit ediliyor ancak kesici açılmıyor.
+
+### Öneriler
+
+- **Acil Yapılacaklar:**
+ + Arıza nedenini hızlıca tespit et
+ + Kesici durumunu kontrol et
+ + Geçici koruma ayarları yap
+
+- **Uzun Vadeli Çözümler:**
+ + Koruma rölesi ayarlarının revizyonu
+ + Hat izolasyonunun kontrolü
+ + Sistem analizi

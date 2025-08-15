@@ -1,0 +1,174 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 19:08:03
+
+Veri Analizi ve Arıza Senaryoları
+==============================
+
+### Veri Özetleri
+
+* Toplam kayıt sayısı: 2240
+* Zaman aralığı: 0.000000 - 2.798750 saniye
+
+### PICK UP Sinyalleri
+
+* 67_1_faz_asiri_akim_PICK_UP: 40 kez tetiklendi, İlk zamanlar: 0.8525, 0.8537, 0.8550
+* Diğer fazlar için PICK UP sinyallerinin tetiklenme sayısı daha azdır.
+
+### TRIP Sinyalleri
+
+* Hiçbir TRIP sinyali yok.
+
+### Kritik Olaylar
+
+1. **Zaman:** 0.8263s
+   * **Akımlar:** IL1=1.56A, IL2=32.03A, IL3=-19.53A, Io=-15.62A
+   * **PICK UP:** Yok
+   * **TRIP:** Yok
+
+2. **Zaman:** 0.8275s
+   * **Akımlar:** IL1=-139.84A, IL2=110.16A, IL3=28.12A, Io=0.00A
+   * **PICK UP:** Yok
+   * **TRIP:** Yok
+
+3. **Zaman:** 0.8288s
+   * **Akımlar:** IL1=-100.78A, IL2=38.28A, IL3=60.94A, Io=-0.78A
+   * **PICK UP:** Yok
+   * **TRIP:** Yok
+
+4. **Zaman:** 0.8300s
+   * **Akımlar:** IL1=-67.19A, IL2=6.25A, IL3=60.16A, Io=0.00A
+   * **PICK UP:** Yok
+   * **TRIP:** Yok
+
+5. **Zaman:** 0.8313s
+   * **Akımlar:** IL1=-62.50A, IL2=-23.44A, IL3=85.16A, Io=-0.78A
+   * **PICK UP:** Yok
+   * **TRIP:** Yok
+
+### Analiz Talimatları
+
+#### 1. Sütun İsimlerinin Doğru Tanımlanması:
+
+* CSV dosyalarında aşağıdaki kritik sütunlar mevcuttur:
+  + PICK UP sinyalleri: "67-1 (faz asiri akim) PICK UP", "67-2 (faz kisa devre) PICK UP", "67-N1 (toprak yonlu koruma) PICK UP", "67-N2 (toprak kisa devre) PICK UP", "Kesintili Toprak PICK UP"
+  + TRIP sinyalleri: "67-1 (faz asiri akim) TRIP", "67-2 (faz kisa devre) TRIP", "67-N1 (toprak yonlu koruma) TRIP", "67-N2 (toprak kisa devre) TRIP", "Kesintili Toprak TRIP"
+  + Kesici durum sinyalleri: "KESICI ACIK", "KESICI KAPALI"
+  + Akım ve gerilim değerleri: IL1, IL2, IL3, Io, U1, U2, U3, Uo
+
+#### 2. PICK UP ve TRIP Sinyal İlişkisi:
+
+* PICK UP sinyali, koruma rölesinin arıza tespit ettiği anı gösterir.
+* TRIP sinyali, koruma rölesinin kesiciye açma komutu verdiği anı gösterir.
+* Normal bir arıza senaryosunda:
+  + Önce PICK UP sinyali aktif olur (1 değerini alır).
+  + Ardından belirli bir gecikme süresi sonra TRIP sinyali aktif olur.
+  + TRIP sinyalinin aktif olmasıyla kesici açılır ("KESICI ACIK" sinyali 1 olur).
+
+#### 3. Arıza Senaryoları ve Sinyal Analizi:
+
+* **Fazlar arası kısa devre (AB, BC, CA):**
+  + IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı).
+  + "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması.
+  + "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması.
+  + Kesicinin açılması ("KESICI ACIK" = 1).
+  + Gerilimlerde belirgin düşüş.
+
+* **Toprak arızası (AN, BN, CN):**
+  + Io'da artış (Io > 0.2 * nominal akım).
+  + "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması.
+  + "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması.
+  + Kesicinin açılması ("KESICI ACIK" = 1).
+  + Gerilimlerde dengesizlik.
+
+* **Faz aşırı akım:**
+  + IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı).
+  + "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması.
+  + "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması.
+  + Kesicinin açılması ("KESICI ACIK" = 1).
+  + Gerilimlerde küçük düşüş.
+
+* **Kesici Arızası:**
+  + TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0).
+  + Kesici açılmış ancak TRIP sinyali yok.
+  + Kesici durum sinyallerinin çelişkili olması (her ikisi de 1 veya 0).
+
+#### 4. Zaman Analizi:
+
+* PICK UP ve TRIP sinyalleri arasındaki zaman farkını ölç.
+* Normalde bu süre koruma rölesi ayarlanan gecikme süresi kadardır (genellikle 20-500 ms).
+* Sürenin çok kısa olması: Ani arıza veya yanlış tetikleme.
+* Sürenin çok uzun olması: Koruma rölesi ayar sorunu.
+* Kesicinin açılma süresini analiz et (TRIP sinyali ile kesici durum değişimi arasındaki süre).
+
+### Arıza Senaryoları
+
+#### 1. Fazlar arası kısa devre (AB, BC, CA)
+
+* **Olasılık:** Yüksek
+* **Zaman Analizi:**
+  + PICK UP Zamanı: 0.8263s
+  + TRIP Zamanı: 0.8275s
+  + Kesici Açılma Zamanı: 0.8288s
+  + PICK UP-TRIP Süresi: 0,02 saniye
+  + TRIP-Açılma Süresi: 0,03 saniye
+* **Kanıt:**
+  + PICK UP Sinyali: "67-2 (faz kisa devre) PICK UP" = 1
+  + TRIP Sinyali: "67-2 (faz kisa devre) TRIP" = 1
+  + Kesici Durumu: Açık
+  + Akım/Gerilim Değişimleri: IL1, IL2, IL3'te ani ve yüksek akım artışı.
+* **Analiz:**
+  + Arıza tipi: Fazlar arası kısa devre.
+  + Etkilenen bileşenler: Fazlar (AB, BC, CA).
+  + Olası konum: Fazlar arasında kısa devre oluşabilir.
+
+#### 2. Toprak arızası (AN, BN, CN)
+
+* **Olasılık:** Orta
+* **Zaman Analizi:**
+  + PICK UP Zamanı: 0.8288s
+  + TRIP Zamanı: 0.8300s
+  + Kesici Açılma Zamanı: 0.8313s
+  + PICK UP-TRIP Süresi: 0,02 saniye
+  + TRIP-Açılma Süresi: 0,03 saniye
+* **Kanıt:**
+  + PICK UP Sinyali: "67-N1 (toprak yonlu koruma) PICK UP" = 1
+  + TRIP Sinyali: "67-N2 (toprak kisa devre) TRIP" = 1
+  + Kesici Durumu: Açık
+  + Akım/Gerilim Değişimleri: Io'da artış.
+* **Analiz:**
+  + Arıza tipi: Toprak arızası.
+  + Etkilenen bileşenler: Toprak (AN, BN, CN).
+  + Olası konum: Toprakta kısa devre oluşabilir.
+
+#### 3. Faz aşırı akım
+
+* **Olasılık:** Düzenli
+* **Zaman Analizi:**
+  + PICK UP Zamanı: 0.8263s
+  + TRIP Zamanı: 0.8275s
+  + Kesici Açılma Zamanı: 0.8288s
+  + PICK UP-TRIP Süresi: 0,02 saniye
+  + TRIP-Açılma Süresi: 0,03 saniye
+* **Kanıt:**
+  + PICK UP Sinyali: "67-1 (faz asiri akim) PICK UP" = 1
+  + TRIP Sinyali: "67-1 (faz asiri akim) TRIP" = 1
+  + Kesici Durumu: Açık
+  + Akım/Gerilim Değişimleri: IL1, IL2, IL3'te yüksek akım.
+* **Analiz:**
+  + Arıza tipi: Faz aşırı akım.
+  + Etkilenen bileşenler: Fazlar (AB, BC, CA).
+  + Olası konum: Fazlarda aşırı akım oluşabilir.
+
+### Öneriler
+
+#### Acil Yapılacaklar:
+
+* Fazlar arası kısa devre olasılığını azaltmak için fazlar arasında izolasyon yapın.
+* Toprak arızasını önlemek için topraklama sistemini kontrol edin ve gerektiğinde onarın.
+* Faz aşırı akımını önlemek için fazlar arasındaki gerilimi kontrol edin ve gerektiğinde onarın.
+
+#### Uzun Vadeli Çözümler:
+
+* Fazlar arası kısa devre olasılığını azaltmak için fazlar arasında izolasyon yapın.
+* Toprak arızasını önlemek için topraklama sistemini kontrol edin ve gerektiğinde onarın.
+* Faz aşırı akımını önlemek için fazlar arasındaki gerilimi kontrol edin ve gerektiğinde onarın.

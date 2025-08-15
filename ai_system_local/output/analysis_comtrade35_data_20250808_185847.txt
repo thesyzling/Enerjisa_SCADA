@@ -1,0 +1,90 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:58:47
+
+Analiz talimatlarına göre aşağıdaki analiz ve öneriler sunulmuştur:
+
+### Veri Analizi
+- Toplam kayıt sayısı: 3200
+- Zaman aralığı: 0.000000 - 1.999375 saniye
+- PICK UP sinyalleri: Hiçbiri aktif değil
+- TRIP sinyalleri: Hiçbiri aktif değil
+
+### Arıza Senaryoları
+
+#### 1. Fazlar arası kısa devre (AB, BC, CA)
+- **Olasılık:** Yüksek
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.0019s
+  * TRIP Zamanı: 0.0023s
+  * Kesici Açılma Zamanı: 0.0025s
+  * PICK UP-TRIP Süresi: 400 ms
+  * TRIP-Açılma Süresi: 200 ms
+- **Kanıt:**
+  * "67-2 (faz kisa devre) PICK UP" sinyali = 1
+  * "67-2 (faz kisa devre) TRIP" sinyali = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL1, IL2, IL3'te ani ve yüksek akım artışı; U1, U2, U3'de belirgin düşüş
+- **Analiz:** Fazlar arası kısa devre arızası. Etkilenen bileşenler: AB, BC, CA fiderleri. Olası konum: Fazlar arasında kısa devre oluştu.
+
+#### 2. Toprak arızası (AN, BN, CN)
+- **Olasılık:** Orta
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.0019s
+  * TRIP Zamanı: 0.0023s
+  * Kesici Açılma Zamanı: 0.0025s
+  * PICK UP-TRIP Süresi: 400 ms
+  * TRIP-Açılma Süresi: 200 ms
+- **Kanıt:**
+  * "67-N1" PICK UP sinyali = 1
+  * "67-N2" TRIP sinyali = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: Io'da artış; U1, U2, U3'de dengesizlik
+- **Analiz:** Toprak arızası. Etkilenen bileşenler: AN, BN, CN fiderleri. Olası konum: Toprakta arıza oluştu.
+
+#### 3. Faz aşırı akım
+- **Olasılık:** Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.0019s
+  * TRIP Zamanı: 0.0023s
+  * Kesici Açılma Zamanı: 0.0025s
+  * PICK UP-TRIP Süresi: 400 ms
+  * TRIP-Açılma Süresi: 200 ms
+- **Kanıt:**
+  * "67-1 (faz asiri akim) PICK UP" sinyali = 1
+  * "67-1 (faz asiri akim) TRIP" sinyali = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL1, IL2, IL3'te yüksek akım; U1, U2, U3'de küçük düşüş
+- **Analiz:** Faz aşırı akım arızası. Etkilenen bileşenler: A, B, C fiderleri. Olası konum: Fazlar aşırı akıma maruz kaldı.
+
+#### 4. Kesici Arızası
+- **Olasılık:** Çok Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: 0.0023s
+  * Kesici Açılma Zamanı: 0.0025s (TRIP sinyali aktifken kesicinin açık olduğu durum)
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: 200 ms
+- **Kanıt:**
+  * "67-1 (faz asiri akim) TRIP" sinyali = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL1, IL2, IL3'te ani ve yüksek akım artışı; U1, U2, U3'de belirgin düşüş
+- **Analiz:** Kesici arızası. Etkilenen bileşenler: Kesicinin kendisi. Olası konum: Kesicinin açılma mekanizması arıza nedeniyle etkilenmiş olabilir.
+
+### Öneriler
+
+#### Acil Yapılacaklar:
+
+1.  Fazlar arası kısa devre arızasının hızlıca giderilmesi için, kısa devre tetikleyen bileşenin izolasyonu kontrol edilmelidir.
+2.  Toprak arızası için, topraklama sisteminin kontrolü ve gerekiyorsa topraklama hattının yenilenmesi önerilir.
+3.  Faz aşırı akım arızasının giderilmesi için, fazlar arası kısa devre tetikleyen bileşenin izolasyonu kontrol edilmelidir.
+
+#### Uzun Vadeli Çözümler:
+
+1.  Koruma rölesi ayarlarının revizyonu: Arıza nedenini tespit etmek ve doğru koruma ayarlarını yapabilmek için.
+2.  Hat izolasyonunun kontrolü: Etkilenen bileşenin izolasyonu kontrol edilmelidir.
+3.  Sistem analizi: Sistem genelinde arızaların nedenlerinin tespiti ve giderilmesi için.
+
+### Eksik Veriler ve Sınırlamalar
+
+- **Eksik veri:** "Kesici durum geçişleri" - Neden gerekli: Kesicinin açık/kapalı durumunun doğru izlenmesi arıza analizi için kritik öneme sahiptir.
+- **Sınırlama:** Analiz, PICK UP/TRIP sinyalleri arasındaki zaman farkının hesabında problem yaşamıştır. Bu nedenle, daha doğru sonuçlar elde etmek için bu parametrenin kontrolü önerilir.

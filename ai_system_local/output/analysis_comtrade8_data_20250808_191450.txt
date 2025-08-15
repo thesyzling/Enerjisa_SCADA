@@ -1,0 +1,150 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 19:14:50
+
+**Veri Analizi Raporu**
+
+### Veri Özetleri
+- Toplam Kayıt Sayısı: 3680
+- Zaman Aralığı: 0.000000 - 2.299375 saniye
+
+### PICK UP ve TRIP Sinyallerinin Genel Durumu
+- Hiç PICK UP sinyali yok.
+- Hiç TRIP sinyali yok.
+
+### Kesici Durum Geçişleri Analizi
+- "KESICI ACIK" = 1: Kesici açık konumda
+- "KESICI KAPALI" = 1: Kesici kapalı konumda
+
+### Kritik Olaylar
+- Zaman: 0.0000s
+  Akımlar: IL1=-9.38A, IL2=-35.16A, IL3=39.84A, Io=-2.34A
+  PICK UP: Yok
+  TRIP: Yok
+
+- Zaman: 0.0006s
+  Akımlar: IL1=4.69A, IL2=-37.50A, IL3=30.47A, Io=-2.34A
+  PICK UP: Yok
+  TRIP: Yok
+
+- Zaman: 0.0012s
+  Akımlar: IL1=16.41A, IL2=-39.84A, IL3=21.09A, Io=-2.34A
+  PICK UP: Yok
+  TRIP: Yok
+
+- Zaman: 0.0019s
+  Akımlar: IL1=25.78A, IL2=-39.84A, IL3=9.38A, Io=-2.34A
+  PICK UP: Yok
+  TRIP: Yok
+
+- Zaman: 0.0025s
+  Akımlar: IL1=32.81A, IL2=-46.88A, IL3=9.38A, Io=-2.34A
+  PICK UP: Yok
+  TRIP: Yok
+
+### Arıza Senaryoları ve Analizi
+
+#### 1. Fazlar arası kısa devre (AB, BC, CA)
+
+- **Olasılık:** Yüksek
+- **Kanıt:**
+  - IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı)
+  - "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+  - "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+  - Kesicinin açılması ("KESICI ACIK" = 1)
+  - Gerilimlerde belirgin düşüş
+
+- **Analiz:**
+  - Arıza tipi: Fazlar arası kısa devre
+  - Etkilenen bileşenler: IL1, IL2, IL3
+  - Olası konum: Fazlar arasında kısa devre oluştuğu için kesici açıldı.
+
+#### 2. Toprak arızası (AN, BN, CN)
+
+- **Olasılık:** Orta
+- **Kanıt:**
+  - Io'da artış (Io > 0.2 * nominal akım)
+  - "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+  - "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+  - Kesicinin açılması ("KESICI ACIK" = 1)
+  - Gerilimlerde dengesizlik
+
+- **Analiz:**
+  - Arıza tipi: Toprak arızası
+  - Etkilenen bileşenler: Io, "67-N1", "67-N2"
+  - Olası konum: Toprak yüklendiği için kesici açıldı.
+
+#### 3. Faz aşırı akım
+
+- **Olasılık:** Düşük
+- **Kanıt:**
+  - IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+  - "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+  - "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+  - Kesicinin açılması ("KESICI ACIK" = 1)
+  - Gerilimlerde küçük düşüş
+
+- **Analiz:**
+  - Arıza tipi: Faz aşırı akım
+  - Etkilenen bileşenler: IL1, IL2, IL3
+  - Olası konum: Fazlar arasında aşırı akım oluştuğu için kesici açıldı.
+
+#### 4. Kesici Arızası
+
+- **Olasılık:** Çok Düşük
+- **Kanıt:**
+  - TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+  - Kesici açılmış ancak TRIP sinyali yok
+  - Kesici durum sinyallerinin çelişkili olması (her ikisi de 1 veya 0)
+
+- **Analiz:**
+  - Arıza tipi: Kesici arızası
+  - Etkilenen bileşenler: Kesici
+  - Olası konum: Kesicinin arızalandığı için kesici açılamadı.
+
+### Öneriler
+
+#### Acil Yapılacaklar:
+
+1. **Kesici durum geçişlerini kontrol et:** Kesici durum geçişlerinin doğru izlenmesi arıza analizi için kritik öneme sahiptir.
+2. **Gerilim ve akım ölçümlerini kontrol et:** Gerilim ve akım ölçümlerinin doğruluğunu kontrol etmek için kesiciden öncesine kadar gerilim ve akım ölçümleri alınmalıdır.
+3. **Koruma rölesi ayarlarını revize et:** Koruma rölesi ayarlarının doğru olup olmadığını kontrol etmek için koruma rölesini ayarlayan kişi ile görüşülmelidir.
+
+#### Uzun Vadeli Çözümler:
+
+1. **Sistem analizi yapın:** Sistem analizinin yapılması arızaların nedenlerini daha iyi anlamak ve sistemde daha fazla arıza oluşmasını önlemek için önemlidir.
+2. **Koruma rölesi ayarlarını optimize et:** Koruma rölesi ayarlarının optimize edilmesi korunan bileşenlerin sayısını azaltmak ve sistemin daha verimli çalışmasını sağlamak için önemlidir.
+3. **Hata izolasyonunu kontrol et:** Hata izolasyonunun doğru olup olmadığını kontrol etmek için hata izolatörünü ayarlayan kişi ile görüşülmelidir.
+
+### Eksik Veriler ve Sınırlamalar
+
+- **Eksik veri 1:** Gerilim ölçümleri
+  - Neden gerekli: Gerilim ölçümlerinin eksiksiz olması arızaların nedenlerini daha iyi anlamak için önemlidir.
+- **Eksik veri 2:** Akım ölçümleri
+  - Neden gerekli: Akım ölçümlerinin eksiksiz olması arızaların nedenlerini daha iyi anlamak için önemlidir.
+
+### Çıktı Formatı
+
+Veri Analizi Raporu:
+
+* Veri Özetleri:
+	+ Toplam Kayıt Sayısı: 3680
+	+ Zaman Aralığı: 0.000000 - 2.299375 saniye
+* PICK UP ve TRIP Sinyallerinin Genel Durumu:
+	+ Hiç PICK UP sinyali yok.
+	+ Hiç TRIP sinyali yok.
+* Kesici Durum Geçişleri Analizi:
+	+ "KESICI ACIK" = 1: Kesici açık konumda
+	+ "KESICI KAPALI" = 1: Kesici kapalı konumda
+* Arıza Senaryoları ve Analizi:
+	+ [Senaryo 1]
+	+ [Senaryo 2]
+	+ [Senaryo 3]
+* Öneriler:
+	+ Acil Yapılacaklar:
+		- [Öneri 1]
+		- [Öneri 2]
+		- [Öneri 3]
+	+ Uzun Vadeli Çözümler:
+		- [Öneri 1]
+		- [Öneri 2]
+		- [Öneri 3]

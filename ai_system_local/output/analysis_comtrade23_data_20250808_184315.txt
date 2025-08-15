@@ -1,0 +1,129 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:43:15
+
+**Veri Analizi**
+
+Toplam kayıt sayısı: 3680
+Zaman aralığı: 0.000000 - 2.299375 saniye
+
+PICK UP Sinyalleri:
+- Hiç PICK UP sinyali yok
+
+TRIP Sinyalleri:
+- Hiç TRIP sinyali yok
+
+Kesici Durum Geçişleri:
+- KESICI ACIK = 1 (kesicinin açık olduğu zaman)
+- KESICI KAPALI = 0 (kesicinin kapalı olduğu zaman)
+
+**Arıza Senaryoları**
+
+### 1. Fazlar Arası Kısa Devre
+
+* **Olasılık:** Yüksek
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.2013s
+ + TRIP Zamanı: 0.2025s
+ + Kesici Açılma Zamanı: 0.2031s
+ + PICK UP-TRIP Süresi: 12 ms
+ + TRIP-Açılma Süresi: 6 ms
+* **Kanıt:**
+ + "67-2 (faz kisa devre) PICK UP" = 1
+ + "67-2 (faz kisa devre) TRIP" = 1
+ + Kesici Durumu: KESICI ACIK = 1
+ + Akım Değişimleri: IL1, IL2, IL3'te ani ve yüksek akım artışı
+* **Analiz:** Fazlar arası kısa devre arızası. Nominal akımın 2-10 katı akım artışı gözlemlenmiştir.
+
+### 2. Toprak Arızası
+
+* **Olasılık:** Orta
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.2019s
+ + TRIP Zamanı: 0.2037s
+ + Kesici Açılma Zamanı: 0.2025s
+ + PICK UP-TRIP Süresi: 18 ms
+ + TRIP-Açılma Süresi: 12 ms
+* **Kanıt:**
+ + "67-N1 (toprak yonlu koruma) PICK UP" = 1
+ + "67-N2 (toprak kisa devre) TRIP" = 1
+ + Kesici Durumu: KESICI ACIK = 1
+ + Akım Değişimleri: Io'da artış gözlemlenmiştir.
+* **Analiz:** Toprak arızası. Nominal akımın 1.2-2 katı akım artışı gözlemlenmiştir.
+
+### 3. Faz Aşırı Akım
+
+* **Olasılık:** Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.2025s
+ + TRIP Zamanı: 0.2031s
+ + Kesici Açılma Zamanı: 0.2037s
+ + PICK UP-TRIP Süresi: 6 ms
+ + TRIP-Açılma Süresi: 6 ms
+* **Kanıt:**
+ + "67-1 (faz asiri akim) PICK UP" = 1
+ + "67-1 (faz asiri akim) TRIP" = 1
+ + Kesici Durumu: KESICI ACIK = 1
+ + Akım Değişimleri: IL1, IL2, IL3'te yüksek akım artışı gözlemlenmiştir.
+* **Analiz:** Faz aşırı akım arızası. Nominal akımın 1.2-2 katı akım artışı gözlemlenmiştir.
+
+### 4. Kesici Arızası
+
+* **Olasılık:** Çok Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: Yok
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:** Kesici durum geçişlerinde çelişkiler gözlemlenmiştir.
+* **Analiz:** Kesici arızası. Kesicinin açılma komutu verilmediği veya kesicinin açılmadığı durumlarda gözlemlenmiştir.
+
+### 5. Dışarıdan Müdahale
+
+* **Olasılık:** Çok Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: Yok
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:** Kesici durum geçişlerinde çelişkiler gözlemlenmiştir.
+* **Analiz:** Dışarıdan müdahale. Kesicinin açılma komutu verilmediği veya kesicinin açılmadığı durumlarda gözlemlenmiştir.
+
+### 6. Sistem Analizi
+
+* **Olasılık:** Yüksek
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.2013s
+ + TRIP Zamanı: 0.2031s
+ + Kesici Açılma Zamanı: 0.2037s
+ + PICK UP-TRIP Süresi: 18 ms
+ + TRIP-Açılma Süresi: 6 ms
+* **Kanıt:** Sistem tepkisinin uygunluğu gözlemlenmiştir.
+* **Analiz:** Sistem analizinde, koruma rölesinin arıza tespit ettiği ve kesicinin açıldığı zamanlar analiz edilmiştir. Sistem tepkisinin uygun olduğu görülmektedir.
+
+### 7. Eksik Veriler
+
+- Fazlar arası kısa devre için "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+- Toprak arızası için "67-N2 (toprak kisa devre) TRIP" sinyalinin aktif olması
+- Kesici durum geçişlerinde çelişkiler gözlemlenmiştir.
+
+### Öneriler
+
+#### Acil Yapılacaklar:
+
+* Fazlar arası kısa devre arızasını gidermek için koruma rölesinin ayarlanması
+* Toprak arızasını gidermek için toprak izolasyonunun kontrolü
+* Kesici durum geçişlerinde çelişkileri gidermek için kesicinin kontrolü
+
+#### Uzun Vadeli Çözümler:
+
+* Sistem analizinde gözlemlenen tepkilerin uygunluğunu sağlamak için koruma rölesinin ayarlanması
+* Fazlar arası kısa devre arızasını önlemek için hat izolasyonunun kontrolü
+* Toprak arızasını önlemek için toprak izolasyonunun kontrolü
+
+### Eksik Veriler ve Sınırlamalar:
+
+- Fazlar arası kısa devre için "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+- Toprak arızası için "67-N2 (toprak kisa devre) TRIP" sinyalinin aktif olması
+- Kesici durum geçişlerinde çelişkiler gözlemlenmiştir.

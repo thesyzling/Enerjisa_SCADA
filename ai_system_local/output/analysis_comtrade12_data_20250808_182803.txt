@@ -1,0 +1,103 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:28:03
+
+Yapılan analiz ve öneriler doğrultusunda, aşağıdaki senaryolar oluşturulmuştur:
+
+### Arıza Senaryoları
+
+#### 1. **Fazlar Arası Kısa Devre (AB)**
+
+- **Olasılık:** Yüksek
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0,0012 saniye
+  * TRIP Zamanı: 0,0025 saniye
+  * Kesici Açılma Zamanı: 0,0025 saniye
+  * PICK UP-TRIP Süresi: 1,13 ms
+  * TRIP-Açılma Süresi: 0 ms
+- **Kanıt:**
+  * "67-2 (faz kisa devre) PICK UP" = 1
+  * "67-2 (faz kisa devre) TRIP" = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL1=-44,53A, IL2=32,81A, IL3=9,38A
+- **Analiz:**
+  * Arıza tipi: Fazlar arası kısa devre
+  * Etkilenen bileşenler: AB fideri
+  * Olası konum: Kısa devrenin etkisiyle fazlar arasında gerilim düşüşü ve akım artışı oluşmuştur.
+  * Sistem tepkisinin uygunluğu: Koruma rölesi tarafından kısa devre tetiklenerek kesici açılmıştır.
+
+#### 2. **Toprak Arızası (AN)**
+
+- **Olasılık:** Orta
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0,0019 saniye
+  * TRIP Zamanı: 0,0025 saniye
+  * Kesici Açılma Zamanı: 0,0025 saniye
+  * PICK UP-TRIP Süresi: 0,06 ms
+  * TRIP-Açılma Süresi: 0 ms
+- **Kanıt:**
+  * "67-N1 (toprak yonlu koruma) PICK UP" = 1
+  * "67-N1 (toprak yonlu koruma) TRIP" = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: Io=-2,34A
+- **Analiz:**
+  * Arıza tipi: Toprak arızası
+  * Etkilenen bileşenler: AN fideri
+  * Olası konum: Topraktan akımın geçişi ve gerilim dengesizliği oluşmuştur.
+  * Sistem tepkisinin uygunluğu: Koruma rölesi tarafından toprak arızası tetiklenerek kesici açılmıştır.
+
+#### 3. **Fazlar Arası Kısa Devre (BC)**
+
+- **Olasılık:** Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  * "67-2 (faz kisa devre) PICK UP" = 0
+  * "67-2 (faz kisa devre) TRIP" = 0
+  * Kesici Durumu: Kapalı
+  * Akım/Gerilim Değişimleri: IL1=-32,81A, IL2=58,59A, IL3=-28,12A
+- **Analiz:**
+  * Arıza tipi: Fazlar arası kısa devre (olmayan)
+  * Etkilenen bileşenler: Yok
+  * Olası konum: Sistem normaldir.
+  * Sistem tepkisinin uygunluğu: Koruma rölesi tarafından kısa devre tetiklenerek kesici açılmamıştır.
+
+#### 4. **Kesici Arızası**
+
+- **Olasılık:** Çok Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  * "67-1 (faz asiri akim) PICK UP" = 0
+  * "67-2 (faz kisa devre) TRIP" = 0
+  * Kesici Durumu: Kapalı
+  * Akım/Gerilim Değişimleri: IL1=-44,53A, IL2=32,81A, IL3=9,38A
+- **Analiz:**
+  * Arıza tipi: Kesici arızası (olmayan)
+  * Etkilenen bileşenler: Yok
+  * Olası konum: Sistem normaldir.
+  * Sistem tepkisinin uygunluğu: Koruma rölesi tarafından kesici açılmamıştır.
+
+### Öneriler
+
+#### Acil Yapılacaklar:
+
+1. **Fazlar Arası Kısa Devre (AB) Senaryosu:** Fazlar arası kısa devreyi gidermek için AB fiderinin izolasyonu kontrol edilmelidir.
+2. **Toprak Arızası (AN) Senaryosu:** Topraktan akımın geçişini önlemek için AN fiderinin topraklama sistemi kontrol edilmelidir.
+
+#### Uzun Vadeli Çözümler:
+
+1. **Koruma Rölesi Ayarlarının Revizyonu:** Koruma rölesinin ayarları revize edilerek, arızaların hızlıca tetiklenmesi sağlanır.
+2. **Sistem Analizi:** Sistem analizinden sonra, potansiyel arıza noktaları belirlenir ve gerekli önlemler alınır.
+
+### Eksik Veriler ve Sınırlamalar:
+
+- **PICK UP/TRIP Sinyalleri:** Bu sinyallerin tetiklemeleri eksiktir. Bu nedenle, senaryoların olasılıkları daha düşük olarak kabul edilmiştir.
+- **Kesici Durumu:** Kesici durum geçişlerinin doğru izlenmesi arıza analizi için kritik öneme sahiptir.

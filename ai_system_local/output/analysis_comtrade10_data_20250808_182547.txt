@@ -1,0 +1,124 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:25:47
+
+**Veri Analizi**
+
+* Toplam kayıt sayısı: 3680
+* Zaman aralığı: 0.000000 - 2.299375 saniye
+
+PICK UP ve TRIP Sinyallerinin Genel Durumu:
+
+- PICK UP sinyali: Hiçbir PICK UP sinyali yok.
+- TRIP sinyali: Hiçbir TRIP sinyali yok.
+
+Kesici Durum Geçişleri Analizi:
+
+* Kritik olaylar analizinde, kesicinin açık/kapalı durumları analiz edilecek. Ancak bu durumda kesici durum geçişleri normalde beklenen gibi değil.
+
+Kritik Olayların Özet Analizi:
+
+1. **Zaman:** 0.0000s
+   * Akımlar: IL1=-28.12A, IL2=-25.78A, IL3=51.56A, Io=-2.34A
+   * PICK UP: Yok
+   * TRIP: Yok
+
+2. **Zaman:** 0.0006s
+   * Akımlar: IL1=-16.41A, IL2=-39.84A, IL3=53.91A, Io=-2.34A
+   * PICK UP: Yok
+   * TRIP: Yok
+
+...
+
+**Arıza Senaryoları**
+
+### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+* **Olasılık:** Yüksek
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.0006s
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:**
+ + PICK UP Sinyali: "67-2 (faz kisa devre) PICK UP" = 1
+ + TRIP Sinyali: Yok
+ + Kesici Durumu: Kapalı
+ + Akım/Gerilim Değişimleri: IL2'de ani düşüş, gerilimlerde dengesizlik
+* **Analiz:** Fazlar arası kısa devre. Arıza tetikleyen faktörler arasında toprak arızası veya faz aşırı akımı olabilir.
+
+### 2. Toprak Arızası (AN, BN, CN)
+
+* **Olasılık:** Orta
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.0019s
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:**
+ + PICK UP Sinyali: "67-N1 (toprak yonlu koruma) PICK UP" = 1
+ + TRIP Sinyali: Yok
+ + Kesici Durumu: Kapalı
+ + Akım/Gerilim Değişimleri: Io'da artış, gerilimlerde dengesizlik
+* **Analiz:** Toprak arızası. Arıza tetikleyen faktörler arasında toprak yükselmesi veya toprak kısa devresi olabilir.
+
+### 3. Faz Aşırı Akım
+
+* **Olasılık:** Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.0025s
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:**
+ + PICK UP Sinyali: "67-1 (faz asiri akim) PICK UP" = 1
+ + TRIP Sinyali: Yok
+ + Kesici Durumu: Kapalı
+ + Akım/Gerilim Değişimleri: IL1'de ani artış, gerilimlerde küçük düşüş
+* **Analiz:** Faz aşırı akımı. Arıza tetikleyen faktörler arasında faz kısa devresi veya toprak arızası olabilir.
+
+### 4. Kesici Arızası
+
+* **Olasılık:** Çok Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: Yok
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:**
+ + PICK UP Sinyali: Yok
+ + TRIP Sinyali: Yok
+ + Kesici Durumu: Kapalı/Açık çelişkisi
+ + Akım/Gerilim Değişimleri: Yok
+* **Analiz:** Kesici arızası. Arıza tetikleyen faktörler arasında kesicinin mekanik arızası veya yanlış ayar olabilir.
+
+### 5. Dışarıdan Müdahale
+
+* **Olasılık:** Orta
+* **Zaman Analizi:**
+ + PICK UP Zamanı: Yok
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:**
+ + PICK UP Sinyali: Yok
+ + TRIP Sinyali: Yok
+ + Kesici Durumu: Kapalı/Açık çelişkisi
+ + Akım/Gerilim Değişimleri: Yok
+* **Analiz:** Dışarıdan müdahale. Arıza tetikleyen faktörler arasında sistemde hata veya yanlış ayar olabilir.
+
+### Öneriler
+
+- **Acil Yapılacaklar:**
+  * Kesici durum geçişlerinin doğru izlenmesi için kesicinin kontrolü.
+  * Sistem analizinden arızanın nedenini hızlıca tespit etme.
+  * Geçici koruma ayarlarının yapılması.
+
+- **Uzun Vadeli Çözümler:**
+  * Koruma rölesi ayarlarının revizyonu.
+  * Hat izolasyonunun kontrolü.
+  * Sistem analizi ve arıza nedeninin kesin olarak belirlenmesi.

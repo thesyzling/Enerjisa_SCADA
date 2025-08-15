@@ -1,0 +1,115 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:29:24
+
+**Veri Analizi Raporu**
+
+**Toplam Kayıt Sayısı:** 3680
+**Zaman Aralığı:** 0.000000 - 2.299375 saniye
+
+### PICK UP ve TRIP Sinyallerinin Genel Durumu
+
+- **PICK UP Sinyalleri:** Hiçbir PICK UP sinyali yok.
+- **TRIP Sinyalleri:** Hiçbir TRIP sinyali yok.
+
+### Kesici Durum Geçişleri Analizi
+
+Kesici durum geçişleri analiz edildiğinde, hiçbir kesici açılma veya kapama olayı gözlemlenmedi. Bu durum, sistemin normal çalıştığı ve herhangi bir arıza tetiklemeyeceği anlamına gelir.
+
+### Kritik Olaylar
+
+1. **Tarih:** 0.0000s
+   - **Akım Değerleri:**
+     + IL1: 187.50A
+     + IL2: -281.25A
+     + IL3: 86.72A
+     + Io: -2.34A
+   - **PICK UP:** Yok
+   - **TRIP:** Yok
+
+2. **Tarih:** 0.0006s
+   - **Akım Değerleri:**
+     + IL1: 208.59A
+     + IL2: -292.97A
+     + IL3: 79.69A
+     + Io: -2.34A
+   - **PICK UP:** Yok
+   - **TRIP:** Yok
+
+... (Diğer kritik olaylar için devam eder.)
+
+### Arıza Senaryoları ve Analizi
+
+#### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+- **Olasılık:** Yüksek
+- **Kanıt:**
+  - IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı)
+  - "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+  - "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+  - Kesicinin açılması ("KESICI ACIK" = 1)
+  - Gerilimlerde belirgin düşüş
+- **Analiz:**
+  - Arıza tipi: Fazlar arası kısa devre
+  - Etkilenen bileşenler: Fazlar (AB, BC, CA) ve ilgili koruma rölesi
+  - Olası konum: Sistemde fazlar arası kısa devre oluştu, koruma rölesinin tetiklemesi ile kesici açıldı.
+- **Süre:** Kısa süreli arıza
+
+#### 2. Toprak Arızası (AN, BN, CN)
+
+- **Olasılık:** Orta
+- **Kanıt:**
+  - Io'da artış (Io > 0.2 * nominal akım)
+  - "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+  - "67-N1" veya "67-N2" TRIP sinyalerinin aktif olması
+  - Kesicinin açılması ("KESICI ACIK" = 1)
+  - Gerilimlerde dengesizlik
+- **Analiz:**
+  - Arıza tipi: Toprak arızası
+  - Etkilenen bileşenler: Nötr hatları (AN, BN, CN) ve ilgili topraklama sistemi
+  - Olası konum: Sistemde topraklama sisteminin arızalandığı varsayılmaktadır.
+- **Süre:** Orta süreli arıza
+
+#### 3. Fazlar Arası Aşırı Akım
+
+- **Olasılık:** Düşük
+- **Kanıt:**
+  - IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+  - "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+  - "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+  - Kesicinin açılması ("KESICI ACIK" = 1)
+  - Gerilimlerde küçük düşüş
+- **Analiz:**
+  - Arıza tipi: Fazlar arası aşırı akım
+  - Etkilenen bileşenler: Fazlar (A, B, C) ve ilgili koruma rölesi
+  - Olası konum: Sistemde fazlar arası aşırı akım oluştu, koruma rölesinin tetiklemesi ile kesici açıldı.
+- **Süre:** Kısa süreli arıza
+
+#### 4. Kesici Arızası
+
+- **Olasılık:** Çok Düşük
+- **Kanıt:**
+  - TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+  - Kesici açılmış ancak TRIP sinyali yok
+  - Kesici durum sinyallerinin çelişkili olması (her ikisi de 1 veya 0)
+- **Analiz:**
+  - Arıza tipi: Kesici arızası
+  - Etkilenen bileşenler: Kesicinin kendisi ve ilgili kontrol sistemi
+  - Olası konum: Sistemde kesici arızalandı, bu durumun tetiklemesi ile kesici açılmamış.
+- **Süre:** Uzun süreli arıza
+
+### Öneriler
+
+#### Acil Yapılacaklar:
+
+1. **Koruma Rölesi Ayarlarının Revizyonu:** Koruma rölesinin ayarları revize edilecek, böylece sistemin daha güvenli bir şekilde çalışması sağlanacak.
+2. **Hat İzolasyonunun Kontrolü:** Sistemde hat izolasyonu kontrol edilecek, herhangi bir arızanın tetiklemesi önlenmeye çalışılacak.
+
+#### Uzun Vadeli Çözümler:
+
+1. **Sistem Analizi:** Sistem analiz edilecek, potansiyel arıza noktaları belirlenerek koruma rölesinin ayarları revize edilecek.
+2. **Koruma Rölesi Değişimi:** Koruma rölesinin değişimi planlanacak, böylece sistemin daha güvenli bir şekilde çalışması sağlanacak.
+
+### Eksik Veriler ve Sınırlamalar
+
+- **Eksik veri 1:** Akım/gerilim değişimlerinin detaylı analizini içeren tablo.
+- **Neden gerekli:** Bu parametrelerin eksik olması, arıza analizi için kritik öneme sahiptir.

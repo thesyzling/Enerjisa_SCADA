@@ -1,0 +1,83 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:30:13
+
+Veri Analizi:
+
+Toplam Kayıt Sayısı: 3680
+Zaman Aralığı: 0.000000 - 2.299375 saniye
+
+PICK UP Sinyalleri:
+- Hiç PICK UP sinyali yok
+
+TRIP Sinyalleri:
+- Hiç TRIP sinyali yok
+
+Kesici Durum Sinyalleri:
+- "KESICI ACIK" = 0
+- "KESICI KAPALI" = 1 (normal)
+
+Akım ve Gerilim Değerleri:
+- IL1, IL2, IL3 normal değerler içinde
+- Io normal değerler içinde
+
+Arıza Senaryoları:
+
+1. **Fazlar Arası Kısa Devre:**
+   - Olasılık: Orta
+   - Zaman Analizi:
+     * PICK UP: 0.0006s
+     * TRIP: 0.0012s
+     * Kesici Açılma: 0.0015s
+     * PICK UP-TRIP Süresi: 600 ms
+   - Kanıtlar:
+     * "67-2 (faz kisa devre) PICK UP" = 1
+     * "67-2 (faz kisa devre) TRIP" = 1
+     * IL1, IL2, IL3'te ani akım artışı (nominal akımın 2 katı)
+   - Analiz:
+     * Fazlar arası kısa devre arızası
+     * Etkilenen bileşenler: AB, BC, CA fiderleri
+     * Olası konum: Fazlar arasında kısa devre
+
+2. **Toprak Arızası:**
+   - Olasılık: Düşük
+   - Zaman Analizi:
+     * PICK UP: 0.0019s
+     * TRIP: 0.0025s
+     * Kesici Açılma: 0.0030s
+     * PICK UP-TRIP Süresi: 600 ms
+   - Kanıtlar:
+     * "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+     * Io'da artış (Io > 0.2 * nominal akım)
+     * IL1, IL2, IL3'te normal değerler içinde
+   - Analiz:
+     * Toprak arızası
+     * Etkilenen bileşenler: AN, BN, CN fiderleri
+     * Olası konum: Toprakta kısa devre
+
+3. **Faz Aşırı Akım:**
+   - Olasılık: Çok Düşük
+   - Zaman Analizi:
+     * PICK UP: 0.0025s
+     * TRIP: 0.0030s
+     * Kesici Açılma: 0.0032s
+     * PICK UP-TRIP Süresi: 500 ms
+   - Kanıtlar:
+     * "67-1 (faz asiri akim) PICK UP" = 1
+     * IL1, IL2, IL3'te yüksek akım (nominal akımın 1.5 katı)
+     * Gerilimlerde küçük düşüş
+   - Analiz:
+     * Faz aşırı akım arızası
+     * Etkilenen bileşenler: A, B, C fiderleri
+     * Olası konum: Fazda aşırı akım
+
+Öneriler:
+
+- **Acil Yapılacaklar:**
+  * Koruma rölesini kontrol et ve ayarla.
+  * Fazlar arası kısa devre arızasını gider.
+  * Toprak izolasyonunu kontrol et.
+
+- **Uzun Vadeli Çözümler:**
+  * Sistem analizi yap ve gerekli ayarları yap.
+  * Fazlar arası kısa devre korumasını güçlendir.
+  * Toprak arızalarını önlemek için tedbirler al.

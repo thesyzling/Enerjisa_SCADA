@@ -1,0 +1,72 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:49:06
+
+Bu analiz, elektrik şebekesindeki kritik olayları ve potansiyel arızaları tespit etmek amacıyla SCADA verilerini analiz etmektedir. Analiz talimatlarına göre aşağıdaki sonuçlar elde edilmiştir:
+
+### Arıza Senaryoları ve Olasılıkları
+
+1.  **Fazlar arası kısa devre (AB, BC, CA):**
+    *   **Olasılık:** Yüksek
+    *   **Kanıt:**
+        *   IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı)
+        *   "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+        *   "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+        *   Kesicinin açılması ("KESICI ACIK" = 1)
+        *   Gerilimlerde belirgin düşüş
+    *   **Analiz:**
+        *   Fazlar arası kısa devre, şebekede kritik bir arıza türüdür.
+        *   Kısa devrenin tetiklediği PICK UP ve TRIP sinyalleri ile kesicinin açılması, arızanın doğruluğunu gösterir.
+
+2.  **Toprak arızası (AN, BN, CN):**
+    *   **Olasılık:** Orta
+    *   **Kanıt:**
+        *   Io'da artış (Io > 0.2 * nominal akım)
+        *   "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+        *   "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+        *   Kesicinin açılması ("KESICI ACIK" = 1)
+        *   Gerilimlerde dengesizlik
+    *   **Analiz:**
+        *   Toprak arızası, topraklama sisteminin arızalanması sonucu ortaya çıkar.
+        *   PICK UP ve TRIP sinyallerinin aktif olması ile kesicinin açılması, toprak arızasının doğruluğunu gösterir.
+
+3.  **Faz aşırı akım:**
+    *   **Olasılık:** Düşük
+    *   **Kanıt:**
+        *   IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+        *   "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+        *   "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+        *   Kesicinin açılması ("KESICI ACIK" = 1)
+        *   Gerilimlerde küçük düşüş
+    *   **Analiz:**
+        *   Faz aşırı akımı, fazların arızalanması veya kısa devre oluşması sonucu ortaya çıkar.
+        *   PICK UP ve TRIP sinyallerinin aktif olması ile kesicinin açılması, faz aşırı akımının doğruluğunu gösterir.
+
+4.  **Kesici Arızası:**
+    *   **Olasılık:** Çok Düşük
+    *   **Kanıt:**
+        *   TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+        *   Kesici açılmış ancak TRIP sinyali yok
+        *   Kesici durum sinyallerinin çelişkili olması (her ikisi de 1 veya 0)
+    *   **Analiz:**
+        *   Kesici arızası, kesicinin arızalanması veya mekanik sorunları sonucu ortaya çıkar.
+        *   TRIP sinyalinin aktif olmasına rağmen kesicinin açılmamış olması veya kesicinin açıldığı halde TRIP sinyalinin yokluğu, kesici arızasının doğruluğunu gösterir.
+
+### Öneriler
+
+- **Acil Yapılacaklar:**
+  1.  Kısa devre arızasını gidermek için şebekedeki fazları kontrol etmek ve gerekli onarımları yapmak.
+  2.  Toprak arızasını gidermek için topraklama sisteminin kontrolünü sağlamak ve gerekli onarımları yapmak.
+  3.  Faz aşırı akımını önlemek için fazların kontrolünü sağlamak ve gerekli onarımları yapmak.
+
+- **Uzun Vadeli Çözümler:**
+  1.  Koruma rölesi ayarlarının revizyonunu yaparak, arızaların erken tetiklenmesini engellemek.
+  2.  Hat izolasyonunun kontrolünü sağlamak ve gerekli onarımları yapmak.
+  3.  Sistem analizi yapma ve şebekedeki potansiyel riskleri belirleme.
+
+### Eksik Veriler ve Sınırlamalar
+- **Eksik veri 1:** PICK UP sinyallerinin zaman damgası
+  *   Neden gerekli: Arızanın tetiklenme süresini belirlemek için önemlidir.
+- **Eksik veri 2:** TRIP sinyalinin zaman damgası
+  *   Neden gerekli: Arızanın tetiklenme süresini belirlemek için önemlidir.
+
+Bu analiz, elektrik şebekesindeki kritik olayları ve potansiyel arızaları tespit etmek amacıyla SCADA verilerini analiz etmektedir. Analiz talimatlarına göre elde edilen sonuçlar, arızaların türünü, olasılığını ve etkilenen bileşenleri belirlemeye yardımcı olmaktadır. Bu bilgiler ışığında, şebekede kritik olayların önlenmesine yönelik acil ve uzun vadeli çözüm önerileri sunulmuştur.

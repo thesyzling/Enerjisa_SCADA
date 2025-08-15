@@ -1,0 +1,108 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 19:02:22
+
+Veri Analizi:
+
+- **Toplam Kayıt Sayısı:** 2240
+- **Zaman Aralığı:** 0.000000 - 2.798750 saniye
+- **PICK UP Sinyalleri:** Hiç PICK UP sinyali yok.
+- **TRIP Sinyalleri:** Hiç TRIP sinyali yok.
+- **Kritik Olaylar:**
+  * **Zaman:** 0.8363s
+    + **Akımlar:** IL1=-1.56A, IL2=-28.12A, IL3=0.00A, Io=-0.78A
+    + **PICK UP:** Yok
+    + **TRIP:** Yok
+
+Arıza Senaryoları:
+
+### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+- **Olasılık:** Yüksek
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.8363s
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  + PICK UP Sinyali: "67-2 (faz kisa devre) PICK UP" = 1
+  + TRIP Sinyali: Yok
+  + Kesici Durumu: Kapalı
+  + Akım/Gerilim Değişimleri: IL2=-28.12A, U2 düşüşü
+- **Analiz:** Fazlar arası kısa devre arızası. Koruma rölesinin tetiklemesi eksik.
+- **Etkilenen Bileşenler:** AB, BC, CA fiderleri
+- **Olası Konum:** Kısa devre arızası nedeniyle fazlar arasında gerilim düşüşü ve akım artışı.
+
+### 2. Toprak Arızası (AN, BN, CN)
+
+- **Olasılık:** Orta
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  + PICK UP Sinyali: "67-N1" veya "67-N2" = 1
+  + TRIP Sinyali: Yok
+  + Kesici Durumu: Kapalı
+  + Akım/Gerilim Değişimleri: Io artışı, Uo dengesizliği
+- **Analiz:** Toprak arızası. Koruma rölesinin tetiklemesi eksik.
+- **Etkilenen Bileşenler:** AN, BN, CN fiderleri
+- **Olası Konum:** Toprak arızası nedeniyle topraklama gerilimindeki dengesizlik.
+
+### 3. Fazlar Arası Aşırı Akım (AB, BC, CA)
+
+- **Olasılık:** Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  + PICK UP Sinyali: "67-1 (faz asiri akim) PICK UP" = 1
+  + TRIP Sinyali: Yok
+  + Kesici Durumu: Kapalı
+  + Akım/Gerilim Değişimleri: IL1, IL2 yüksek akım, U1, U2 küçük düşüş
+- **Analiz:** Fazlar arası aşırı akım arızası. Koruma rölesinin tetiklemesi eksik.
+- **Etkilenen Bileşenler:** AB, BC, CA fiderleri
+- **Olası Konum:** Aşırı akım arızası nedeniyle fazlar arasında gerilim düşüşü ve akım artışı.
+
+### 4. Kesici Arızası
+
+- **Olasılık:** Çok Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Kapalı
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  + PICK UP Sinyali: Yok
+  + TRIP Sinyali: Yok
+  + Kesici Durumu: Kapalı
+  + Akım/Gerilim Değişimleri: Yok
+- **Analiz:** Kesici arızası. Koruma rölesinin tetiklemesi eksik.
+- **Etkilenen Bileşenler:** Tüm sistem
+- **Olası Konum:** Kesici arızası nedeniyle sistemin çalışamaması.
+
+Öneriler:
+
+### Acil Yapılacaklar
+
+1.  **Koruma Rölesi Ayarlarının Revizyonu:** Koruma rölesinin tetiklemesi eksik olduğu durumlarda, koruma rölesi ayarlarının revizyona tabi tutulması gerekir.
+2.  **Hat İzolasyonunun Kontrolü:** Toprak arızası veya fazlar arası kısa devre arızalarında hat izolasyonunun kontrolü yapılması gerekir.
+3.  **Sistem Analizi:** Sistem analizi yapılarak sistemin çalışması ve koruma rölesinin tetiklemesi kontrol edilecektir.
+
+### Uzun Vadeli Çözümler
+
+1.  **Koruma Rölesi Ayarlarının Revizyonu:** Koruma rölesinin tetiklemesi eksik olduğu durumlarda, koruma rölesi ayarlarının revizyona tabi tutulması gerekir.
+2.  **Hat İzolasyonunun Kontrolü:** Toprak arızası veya fazlar arası kısa devre arızalarında hat izolasyonunun kontrolü yapılması gerekir.
+3.  **Sistem Analizi:** Sistem analizi yapılarak sistemin çalışması ve koruma rölesinin tetiklemesi kontrol edilecektir.
+
+Eksik Veriler ve Sınırlamalar:
+
+- **PICK UP/TRIP sinyalleri arasındaki zaman farkının ölçülmesi:** PICK UP-TRIP Süresi yok.
+- **Kesici durum geçişlerinin doğru izlenmesi:** Kesici durum geçişleri analizinde eksiklik var.
+- **Akım/Gerilim Değişimlerinin Ölçümü:** Akım/Gerilim değişimleri analizinde eksiklik var.

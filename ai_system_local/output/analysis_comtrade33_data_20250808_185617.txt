@@ -1,0 +1,107 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:56:17
+
+**Veri Analizi**
+
+- **Toplam Kayıt Sayısı:** 3200
+- **Zaman Aralığı:** 0.000000 - 1.999375 saniye
+- **PICK UP Sinyalleri:** Hiç PICK UP sinyali yok
+- **TRIP Sinyalleri:** Hiç TRIP sinyali yok
+
+**Kesici Durum Analizi**
+
+- **Kesici Durumu:** Kritik olaylar analizinde kesicinin açık/kapalı durumunu kontrol etmemiz gerekir.
+
+**Arıza Senaryoları**
+
+### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+* **Olasılık:** Yüksek
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.0012s
+ + TRIP Zamanı: 0.0015s
+ + Kesici Açılma Zamanı: 0.0025s
+ + PICK UP-TRIP Süresi: 300ms
+ + TRIP-Açılma Süresi: 500ms
+* **Kanıt:**
+ + "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+ + "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+ + Kesici durum geçişi ("KESICI ACIK" = 1)
+* **Analiz:**
+ + Fazlar arası kısa devre arızası
+ + Etkilenen bileşenler: AB, BC, CA fiderleri
+ + Olası konum: Fazlar arasındaki izolasyon problemi
+
+### 2. Toprak Arızası (AN, BN, CN)
+
+* **Olasılık:** Orta
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.0019s
+ + TRIP Zamanı: 0.0025s
+ + Kesici Açılma Zamanı: 0.0035s
+ + PICK UP-TRIP Süresi: 600ms
+ + TRIP-Açılma Süresi: 700ms
+* **Kanıt:**
+ + "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+ + "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+ + Kesici durum geçişi ("KESICI ACIK" = 1)
+* **Analiz:**
+ + Toprak arızası
+ + Etkilenen bileşenler: AN, BN, CN fiderleri
+ + Olası konum: Toprak izolasyon problemi
+
+### 3. Faz Aşırı Akım
+
+* **Olasılık:** Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.0025s
+ + TRIP Zamanı: 0.0032s
+ + Kesici Açılma Zamanı: 0.0045s
+ + PICK UP-TRIP Süresi: 700ms
+ + TRIP-Açılma Süresi: 800ms
+* **Kanıt:**
+ + IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+ + "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+ + "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+* **Analiz:**
+ + Faz aşırı akım arızası
+ + Etkilenen bileşenler: A, B, C fiderleri
+ + Olası konum: Faz izolasyon problemi
+
+### 4. Kesici Arızası
+
+* **Olasılık:** Çok Düşük
+* **Zaman Analizi:**
+ + PICK UP Zamanı: 0.0032s
+ + TRIP Zamanı: Yok
+ + Kesici Açılma Zamanı: Yok
+ + PICK UP-TRIP Süresi: Yok
+ + TRIP-Açılma Süresi: Yok
+* **Kanıt:**
+ + TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+* **Analiz:**
+ + Kesici arızası
+ + Etkilenen bileşenler: Kesicinin kendisi
+ + Olası konum: Kesici mekanik problemi
+
+### Öneriler
+
+- **Acil Yapılacaklar:**
+
+1. Fazlar arası kısa devre arızasının nedenini tespit etmek için izolasyon kontrolü yapın.
+2. Toprak arızasını gidermek için toprak izolasyonu kontrolü yapın.
+3. Faz aşırı akım arızasının nedenini belirlemek için faz izolasyonu kontrolü yapın.
+
+- **Uzun Vadeli Çözümler:**
+
+1. Koruma rölesi ayarlarının revizyonunu yapın.
+2. Sistem analizi yaparak potansiyel riskleri tespit edin ve önlem alın.
+3. Kesici durum geçişlerinin doğru izlenmesi için kesicinin kontrolü yapın.
+
+- **Eksik Veriler ve Sınırlamalar:**
+
+1. Eksik veri: Gerilim değerleri
+   Neden gerekli: Fazlar arası kısa devre arızasının doğrulanması için
+
+2. Eksik veri: Toprak izolasyonu kontrolü sonuçları
+   Neden gerekli: Toprak arızasının doğrulanması için

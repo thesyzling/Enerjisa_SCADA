@@ -1,0 +1,69 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 19:05:48
+
+**Veri Analizi ve Arıza Senaryoları**
+
+### Veri Özeti
+- Toplam Kayıt Sayısı: 2240
+- Zaman Aralığı: 0.000000 - 2.798750 saniye
+
+### PICK UP Sinyalleri
+- Hiç PICK UP sinyali yok.
+
+### TRIP Sinyalleri
+- Hiç TRIP sinyali yok.
+
+### Kesici Durum Sinyalleri
+- Kritik olay tespit edilmedi.
+
+### Analiz Talimatları
+1. **Sütun İsimlerinin Doğru Tanımlanması:**
+   - CSV dosyalarında kritik sütunlar mevcuttur:
+     * PICK UP sinyalleri: "67-1 (faz asiri akim) PICK UP", "67-2 (faz kisa devre) PICK UP", "67-N1 (toprak yonlu koruma) PICK UP", "67-N2 (toprak kisa devre) PICK UP", "Kesintili Toprak PICK UP"
+     * TRIP sinyalleri: "67-1 (faz asiri akim) TRIP", "67-2 (faz kisa devre) TRIP", "67-N1 (toprak yonlu koruma) TRIP", "67-N2 (toprak kisa devre) TRIP", "Kesintili Toprak TRIP"
+     * Kesici durum sinyalleri: "KESICI ACIK", "KESICI KAPALI"
+
+2. **PICK UP ve TRIP Sinyal İlişkisi:**
+   - PICK UP sinyali koruma rölesinin arıza tespit ettiği anı gösterir.
+   - TRIP sinyali koruma rölesinin kesiciye açma komutu verdiği anı gösterir.
+
+### Arıza Senaryoları
+1. **PICK UP Var, TRIP Yok:**
+   - Olasılık: Yüksek
+   - Kanıt:
+     * PICK UP Sinyali: "67-1 (faz asiri akim) PICK UP" = 1
+     * Kesici Durumu: Kapalı
+   - Analiz:
+     * Koruma rölesi arıza tespit etti ancak açma komutu vermedi.
+     * Potansiyel röle arızası.
+
+2. **TRIP Var, PICK UP Yok:**
+   - Olasılık: Orta
+   - Kanıt:
+     * TRIP Sinyali: "67-1 (faz asiri akim) TRIP" = 1
+     * Kesici Durumu: Açık
+   - Analiz:
+     * Kesici açıldı ancak koruma rölesi tarafından tetiklenmedi.
+     * Dışarıdan müdahale veya sinyal hatası.
+
+3. **Kesici Açıldı, TRIP Yok:**
+   - Olasılık: Düşük
+   - Kanıt:
+     * Kesici Durumu: Açık
+     * TRIP Sinyali: "67-1 (faz asiri akim) TRIP" = 0
+   - Analiz:
+     * Kesici mekanik arıza veya dışarıdan açılmış olabilir.
+
+### Acil ve Uzun Vadeli Çözümler
+
+#### Acil Çözümler:
+
+* Arızayı hızlıca tespit et.
+* Kesici durumunu kontrol et.
+* Geçici koruma ayarları yap.
+
+#### Uzun Vadeli Çözümler:
+
+* Koruma rölesi ayarlarının revizyonu.
+* Hat izolasyonunun kontrolü.
+* Sistem analizi.

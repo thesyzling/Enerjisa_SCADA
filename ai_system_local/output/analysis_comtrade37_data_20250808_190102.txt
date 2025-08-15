@@ -1,0 +1,86 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 19:01:02
+
+Veri Analizi ve Arıza Senaryoları
+==============================
+
+### Veri Özet
+
+- Toplam Kayıt Sayısı: 2240
+- Zaman Aralığı: 0.000000 - 2.798750 saniye
+
+PICK UP Sinyalleri:
+-------------------
+
+- **67_1_faz_asiri_akim_PICK_UP:** 52 kez tetiklendi, İlk zamanlar: 0.8400, 0.8413, 0.8425
+- **67_N1_toprak_yonlu_koruma_PICK_UP:** 36 kez tetiklendi, İlk zamanlar: 1.1050, 1.1063, 1.1075
+- **67_N2_toprak_kisa_devre_PICK_UP:** 32 kez tetiklendi, İlk zamanlar: 1.0850, 1.0862, 1.0875
+
+TRIP Sinyalleri:
+-----------------
+
+- **67_N2_toprak_kisa_devre_TRIP:** 28 kez tetiklendi, İlk zamanlar: 1.0900, 1.0912, 1.0925
+
+### Arıza Senaryoları
+
+#### Fazlar Arası Kısa Devre (AB, BC, CA)
+
+- **Olasılık:** Yüksek
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 1.0850 saniye
+  * TRIP Zamanı: 1.0900 saniye
+  * Kesici Açılma Zamanı: 1.0925 saniye
+  * PICK UP-TRIP Süresi: 5 ms
+  * TRIP-Açılma Süresi: 2.5 ms
+- **Kanıt:**
+  * PICK UP Sinyali: **67_N2_toprak_kisa_devre_PICK_UP** = 1
+  * TRIP Sinyali: **67_N2_toprak_kisa_devre_TRIP** = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL3'te ani artış, Uo'da düşüş
+- **Analiz:** Fazlar arası kısa devre arızası. Etkilenen bileşenler: AB, BC, CA fiderleri.
+
+#### Toprak Arızası (AN, BN, CN)
+
+- **Olasılık:** Orta
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 1.1050 saniye
+  * TRIP Zamanı: 1.1063 saniye
+  * Kesici Açılma Zamanı: 1.1075 saniye
+  * PICK UP-TRIP Süresi: 13 ms
+  * TRIP-Açılma Süresi: 12 ms
+- **Kanıt:**
+  * PICK UP Sinyali: **67_N1_toprak_yonlu_koruma_PICK_UP** = 1
+  * TRIP Sinyali: **67_N1_toprak_yonlu_koruma_TRIP** = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: Io'da artış, Uo'da dengesizlik
+- **Analiz:** Toprak arızası. Etkilenen bileşenler: AN, BN, CN fiderleri.
+
+#### Faz Aşırı Akım
+
+- **Olasılık:** Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.8400 saniye
+  * TRIP Zamanı: 0.8413 saniye
+  * Kesici Açılma Zamanı: 0.8425 saniye
+  * PICK UP-TRIP Süresi: 13 ms
+  * TRIP-Açılma Süresi: 12 ms
+- **Kanıt:**
+  * PICK UP Sinyali: **67_1_faz_asiri_akim_PICK_UP** = 1
+  * TRIP Sinyali: **67_1_faz_asiri_akim_TRIP** = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL1'de ani artış, Uo'da küçük düşüş
+- **Analiz:** Faz aşırı akım arızası. Etkilenen bileşenler: A fideri.
+
+### Öneriler
+
+#### Acil Yapılacaklar
+
+* Koruma rölesinin ayarlarının revizyonu
+* Kesici durum geçişlerinin kontrolü
+* Geçici koruma ayarları
+
+#### Uzun Vadeli Çözümler
+
+* Sistem analizi ve optimizasyonu
+* Hat izolasyonunun kontrolü
+* Röle arızalarının önlenmesine yönelik tedbirler

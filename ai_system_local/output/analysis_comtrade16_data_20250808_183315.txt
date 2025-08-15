@@ -1,0 +1,85 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:33:15
+
+Analiz Talimatlarına göre, aşağıdaki analiz ve öneriler sunulmaktadır:
+
+### Arıza Senaryoları
+
+#### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+- **Olasılık:** Yüksek
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.0012s
+  * TRIP Zamanı: 0.0015s
+  * Kesici Açılma Zamanı: 0.0025s
+  * PICK UP-TRIP Süresi: 30 ms
+  * TRIP-Açılma Süresi: 100 ms
+- **Kanıt:**
+  * "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+  * "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+  * Kesici durum geçişi ("KESICI ACIK" = 1)
+  * IL1, IL2, IL3'te ani akım artışı
+- **Analiz:**
+  * Arıza tipi: Fazlar arası kısa devre
+  * Etkilenen bileşenler: AB, BC, CA fiderleri
+  * Olası konum: Fazlar arasında kısa devre oluştuğu için koruma rölesi TRIP sinyali gönderdi
+  * Sistem tepkisinin uygunluğu: Koruma sistemi doğru şekilde çalıştı
+
+#### 2. Toprak Arızası (AN, BN, CN)
+
+- **Olasılık:** Orta
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  * "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+  * "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+  * Io'da artış (Io > 0.2 * nominal akım)
+- **Analiz:**
+  * Arıza tipi: Toprak arızası
+  * Etkilenen bileşenler: AN, BN, CN fiderleri
+  * Olası konum: Toprakta arıza oluştuğu için koruma rölesi TRIP sinyali gönderdi
+  * Sistem tepkisinin uygunluğu: Koruma sistemi doğru şekilde çalıştı
+
+#### 3. Faz Aşırı Akım
+
+- **Olasılık:** Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  * IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+  * "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+  * "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+- **Analiz:**
+  * Arıza tipi: Faz aşırı akım
+  * Etkilenen bileşenler: A, B, C fiderleri
+  * Olası konum: Fazda aşırı akım oluştuğu için koruma rölesi TRIP sinyali gönderdi
+  * Sistem tepkisinin uygunluğu: Koruma sistemi doğru şekilde çalıştı
+
+### Öneriler
+
+#### Acil Yapılacaklar:
+
+1. **Koruma Rölesinin Revizyonu:** Koruma rölesinin ayarları revize edilmeli, özellikle PICK UP ve TRIP sinyalleri arasındaki gecikme süresi kontrol edilmelidir.
+2. **Faz İzolasyonunun Kontrolü:** Faz izolasyonlarının kontrolü yapılmalı, arızalı bölgeler tespit edilerek onarılmalıdır.
+3. **Sistem Analizi:** Sistem analizinden sonra koruma rölesinin doğru çalışıp çalışmadığının doğrulanması için testler yapılmalıdır.
+
+#### Uzun Vadeli Çözümler:
+
+1. **Koruma Rölesi Ayarlarının Revizyonu:** Koruma rölesi ayarları revize edilmeli, özellikle PICK UP ve TRIP sinyalleri arasındaki gecikme süresi kontrol edilmelidir.
+2. **Faz İzolasyonunun Onarımı:** Arızalı bölgeler tespit edilerek onarılmalıdır.
+3. **Sistem Analizi:** Sistem analizinden sonra koruma rölesinin doğru çalışıp çalışmadığının doğrulanması için testler yapılmalıdır.
+
+### Eksik Veriler ve Sınırlamalar:
+
+1. **Kesici Durumu:** Kesici durum geçişlerinin doğru izlenmesi arıza analizi için kritik öneme sahiptir.
+2. **Gerilim Değişimleri:** Gerilim değişimlerinin analizinin eksiksiz yapılması gerekir.
+
+Bu analiz, PICK UP ve TRIP sinyalleri arasındaki gecikme süresini kontrol eden koruma rölesinin ayarlarının revize edilmesi gerektiğini göstermektedir. Ayrıca, faz izolasyonunun kontrolü ve onarımı da kritik öneme sahiptir.

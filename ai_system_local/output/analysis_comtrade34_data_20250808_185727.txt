@@ -1,0 +1,90 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:57:27
+
+**Veri Analizi Raporu**
+
+### Genel Bakış
+Toplam kayıt sayısı 2768, zaman aralığı 0.000000 - 1.729375 saniye arasında değişmektedir.
+
+### PICK UP ve TRIP Sinyallerinin Genel Durumu
+- **PICK UP Sinyali:** Hiçbir PICK UP sinyali yok.
+- **TRIP Sinyali:** Hiçbir TRIP sinyali yok.
+
+### Kesici Durum Geçişleri Analizi
+Kesici durum geçişleri analiz edildiğinde, kesicinin kapalı olduğu zamanlar daha fazladır. Bu durumun nedenini tespit etmek için daha fazla veri gereklidir.
+
+### Kritik Olayların Özet Analizi
+
+1. **Zaman:** 0.0000s
+   - **Akımlar:** IL1=0.00A, IL2=-1.56A, IL3=-4.69A, Io=-5.47A
+   - **PICK UP:** Yok
+   - **TRIP:** Yok
+
+2. **Zaman:** 0.0006s
+   - **Akımlar:** IL1=0.00A, IL2=-1.56A, IL3=-5.47A, Io=-6.25A
+   - **PICK UP:** Yok
+   - **TRIP:** Yok
+
+3. **Zaman:** 0.0012s
+   - **Akımlar:** IL1=0.00A, IL2=-1.56A, IL3=-5.47A, Io=-6.25A
+   - **PICK UP:** Yok
+   - **TRIP:** Yok
+
+4. **Zaman:** 0.0019s
+   - **Akımlar:** IL1=0.00A, IL2=-1.56A, IL3=-6.25A, Io=-7.03A
+   - **PICK UP:** Yok
+   - **TRIP:** Yok
+
+5. **Zaman:** 0.0025s
+   - **Akımlar:** IL1=0.00A, IL2=-1.56A, IL3=-4.69A, Io=-6.25A
+   - **PICK UP:** Yok
+   - **TRIP:** Yok
+
+### Arıza Senaryoları ve Sinyal Analizi
+
+1.  **Fazlar arası kısa devre (AB, BC, CA):**
+    *   Olasılık: Orta
+    *   Kanıtlar:
+        *   IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı)
+        *   "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+        *   "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+    *   Analiz: Fazlar arası kısa devre arızası. Koruma rölesinin doğru şekilde tetiklenmesi önemlidir.
+
+2.  **Toprak arızası (AN, BN, CN):**
+    *   Olasılık: Düşük
+    *   Kanıtlar:
+        *   Io'da artış (Io > 0.2 * nominal akım)
+        *   "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+        *   "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+    *   Analiz: Toprak arızası. Sistemde toprak izolasyonunun kontrolü önemlidir.
+
+3.  **Faz aşırı akım:**
+    *   Olasılık: Çok Düşük
+    *   Kanıtlar:
+        *   IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+        *   "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+        *   "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+    *   Analiz: Faz aşırı akım arızası. Koruma rölesinin doğru şekilde tetiklenmesi önemlidir.
+
+4.  **Kesici Arızası:**
+    *   Olasılık: Yüksek
+    *   Kanıtlar:
+        *   TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+        *   Kesici açılmış ancak TRIP sinyali yok
+    *   Analiz: Kesici arızası. Sistemde kesicinin kontrolü ve ayarlarının revizyonu önemlidir.
+
+### Öneriler
+
+- **Acil Yapılacaklar:**
+    *   Koruma rölesini tetikleme mekanizmasını kontrol et.
+    *   Sistemdeki toprak izolasyonunu kontrol et.
+    *   Kesici durum geçişlerini analiz et ve kesicinin doğru şekilde çalışıp çalışmadığını kontrol et.
+
+- **Uzun Vadeli Çözümler:**
+    *   Koruma rölesinin ayarlarını revize et.
+    *   Sistemdeki toprak izolasyonunu iyileştir.
+    *   Kesici durum geçişlerini analiz et ve kesicinin doğru şekilde çalışmasını sağlamak için gerekli adımları at.
+
+### Eksik Veriler ve Sınırlamalar
+- **Eksik veri 1:** Akım/gerilim değişimlerinin ayrıntılı analizini içeren veri.
+- **Neden gerekli:** Bu veriler, arızanın nedenini daha net bir şekilde tespit etmemize yardımcı olacaktır.

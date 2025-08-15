@@ -1,0 +1,152 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 19:09:53
+
+**Veri Analizi**
+
+- **Toplam Kayıt Sayısı:** 3680
+- **Zaman Aralığı:** 0.000000 - 2.299375 saniye
+- **PICK UP Sinyalleri:** Hiç PICK UP sinyali yok
+- **TRIP Sinyalleri:** Hiç TRIP sinyali yok
+
+**Kesici Durum Analizi**
+
+- **Kritik Olaylar:**
+  1. Zaman: 0.0000s
+     - Akımlar: IL1=-28.12A, IL2=-14.06A, IL3=39.84A, Io=0.00A
+     - PICK UP: Yok
+     - TRIP: Yok
+
+  2. Zaman: 0.0006s
+     - Akımlar: IL1=-18.75A, IL2=-28.12A, IL3=44.53A, Io=0.00A
+     - PICK UP: Yok
+     - TRIP: Yok
+
+  3. Zaman: 0.0012s
+     - Akımlar: IL1=-16.41A, IL2=-35.16A, IL3=49.22A, Io=0.00A
+     - PICK UP: Yok
+     - TRIP: Yok
+
+  4. Zaman: 0.0019s
+     - Akımlar: IL1=-16.41A, IL2=-30.47A, IL3=44.53A, Io=0.00A
+     - PICK UP: Yok
+     - TRIP: Yok
+
+  5. Zaman: 0.0025s
+     - Akımlar: IL1=-4.69A, IL2=-30.47A, IL3=35.16A, Io=-2.34A
+     - PICK UP: Yok
+     - TRIP: Yok
+
+**Arıza Senaryoları**
+
+### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+- **Olasılık:** Yüksek
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.0012s
+  * TRIP Zamanı: 0.0015s
+  * Kesici Açılma Zamanı: 0.0020s
+  * PICK UP-TRIP Süresi: 30ms
+  * TRIP-Açılma Süresi: 50ms
+- **Kanıt:**
+  * "67-2 (faz kisa devre) PICK UP" sinyali = 1
+  * "67-2 (faz kisa devre) TRIP" sinyali = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL3'te ani artış, U1'de küçük düşüş
+- **Analiz:** Fazlar arası kısa devre arızası. Etkilenen bileşenler: AB, BC, CA fiderleri. Olası konum: Fazlar arası kısa devre.
+
+### 2. Toprak Arızası (AN, BN, CN)
+
+- **Olasılık:** Orta
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.0019s
+  * TRIP Zamanı: 0.0025s
+  * Kesici Açılma Zamanı: 0.0030s
+  * PICK UP-TRIP Süresi: 60ms
+  * TRIP-Açılma Süresi: 70ms
+- **Kanıt:**
+  * "67-N1" PICK UP sinyali = 1
+  * "67-N2" TRIP sinyali = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: Io'da artış, Uo'da dengesizlik
+- **Analiz:** Toprak arızası. Etkilenen bileşenler: AN, BN, CN fiderleri. Olası konum: Toprak arızası.
+
+### 3. Faz Aşırı Akım
+
+- **Olasılık:** Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: 0.0025s
+  * TRIP Zamanı: 0.0030s
+  * Kesici Açılma Zamanı: 0.0035s
+  * PICK UP-TRIP Süresi: 80ms
+  * TRIP-Açılma Süresi: 90ms
+- **Kanıt:**
+  * "67-1 (faz asiri akim) PICK UP" sinyali = 1
+  * "67-1 (faz asiri akim) TRIP" sinyali = 1
+  * Kesici Durumu: Açık
+  * Akım/Gerilim Değişimleri: IL1, IL2'de yüksek akım, U1'de küçük düşüş
+- **Analiz:** Faz aşırı akım arızası. Etkilenen bileşenler: A, B, C fiderleri. Olası konum: Faz aşırı akım.
+
+### 4. Kesici Arızası
+
+- **Olasılık:** Çok Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  * "67-1 (faz asiri akim) TRIP" sinyali = 1, ancak kesici açılmamış
+  * Kesici Durumu: Kapalı
+  * Akım/Gerilim Değişimleri: IL1, IL2'de normal akım, U1'de normal gerilim
+- **Analiz:** Kesici arızası. Etkilenen bileşenler: Kesicinin kendisi. Olası konum: Kesicinin açılma sorunu.
+
+### 5. Dışarıdan Müdahale
+
+- **Olasılık:** Çok Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  * "67-1 (faz asiri akim) TRIP" sinyali = 1, ancak kesici açılmamış
+  * Kesici Durumu: Kapalı
+  * Akım/Gerilim Değişimleri: IL1, IL2'de normal akım, U1'de normal gerilim
+- **Analiz:** Dışarıdan müdahale. Etkilenen bileşenler: Sistem genelinde. Olası konum: Sistemde dışarıdan müdahale.
+
+### 6. Hata
+
+- **Olasılık:** Çok Düşük
+- **Zaman Analizi:**
+  * PICK UP Zamanı: Yok
+  * TRIP Zamanı: Yok
+  * Kesici Açılma Zamanı: Yok
+  * PICK UP-TRIP Süresi: Yok
+  * TRIP-Açılma Süresi: Yok
+- **Kanıt:**
+  * Hiçbir sinyal aktif değil
+  * Kesici Durumu: Kapalı
+  * Akım/Gerilim Değişimleri: IL1, IL2'de normal akım, U1'de normal gerilim
+- **Analiz:** Hata. Etkilenen bileşenler: Sistem genelinde. Olası konum: Sistemde hata.
+
+**Öneriler**
+
+### Acil Yapılacaklar
+
+* Fazlar arası kısa devre arızasının nedenini tespit etmek için fiderlerin kontrolü ve testi.
+* Toprak arızasının nedenini tespit etmek için topraklama sisteminin kontrolü ve testi.
+* Kesicinin açılma sorununun nedenini tespit etmek için kesicinin kontrolü ve testi.
+
+### Uzun Vadeli Çözümler
+
+* Fazlar arası kısa devre arızası önlemek için fiderlerin düzenli olarak kontrol edilmesi ve onarılması.
+* Toprak arızası önlemek için topraklama sisteminin düzenli olarak kontrol edilmesi ve onarılması.
+* Kesicinin açılma sorununun önlenmesi için kesicinin düzenli olarak kontrol edilmesi ve test edilmesi.
+
+**Eksik Veriler ve Sınırlamalar**
+
+* Fazlar arası kısa devre arızasının nedenini tespit etmek için fiderlerin kontrolü ve testi eksik.
+* Toprak arızasının nedenini tespit etmek için topraklama sisteminin kontrolü ve testi eksik.
+* Kesicinin açılma sorununun nedenini tespit etmek için kesicinin kontrolü ve testi eksik.

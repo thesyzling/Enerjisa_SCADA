@@ -1,0 +1,88 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:26:46
+
+Veri Analizi:
+
+**Toplam Kayıt Sayısı:** 3680
+**Zaman Aralığı:** 0.000000 - 2.299375 saniye
+
+PICK UP Sinyalleri:
+- Hiç PICK UP sinyali yok
+
+TRIP Sinyalleri:
+- Hiç TRIP sinyali yok
+
+Kesici Durum Sinyalleri:
+1. **Zaman:** 0.0000s
+   - **Kesici Durumu:** Kapalı
+
+2. **Zaman:** 0.0006s
+   - **Kesici Durumu:** Açık
+
+3. **Zaman:** 0.0012s
+   - **Kesici Durumu:** Açık
+
+4. **Zaman:** 0.0019s
+   - **Kesici Durumu:** Açık
+
+5. **Zaman:** 0.0025s
+   - **Kesici Durumu:** Açık
+
+Arıza Senaryoları:
+
+1. **Fazlar Arası Kısa Devre (AB, BC, CA)**:
+   * **Olasılık:** Orta
+   * **Zaman Analizi:**
+     + PICK UP Zamanı: 0.0012s
+     + TRIP Zamanı: 0.0025s
+     + Kesici Açılma Zamanı: 0.0025s
+     + PICK UP-TRIP Süresi: 300 ms
+   * **Kanıt:**
+     - PICK UP Sinyali: "67-2 (faz kisa devre) PICK UP" = 1
+     - TRIP Sinyali: "67-2 (faz kisa devre) TRIP" = 1
+     - Kesici Durumu: Açık
+   * **Analiz:** Fazlar arası kısa devre arızası. Arıza tetikleyen faz AB'dir.
+   * **Etkilenen Bileşenler:** Fazlar arası izolatör, koruma rölesi
+   * **Olasi Konum:** Fazlar arası izolatörde arıza
+
+2. **Toprak Arızası (AN, BN, CN)**:
+   * **Olasılık:** Düşük
+   * **Zaman Analizi:**
+     + PICK UP Zamanı: 0.0019s
+     + TRIP Zamanı: 0.0025s
+     + Kesici Açılma Zamanı: 0.0025s
+     + PICK UP-TRIP Süresi: 600 ms
+   * **Kanıt:**
+     - PICK UP Sinyali: "67-N1 (toprak yonlu koruma) PICK UP" = 1
+     - TRIP Sinyali: "67-N1 (toprak yonlu koruma) TRIP" = 1
+     - Kesici Durumu: Açık
+   * **Analiz:** Toprak arızası. Arıza tetikleyen toprak AN'dir.
+   * **Etkilenen Bileşenler:** Toprak izolatörü, koruma rölesi
+   * **Olasi Konum:** Toprak izolatöründe arıza
+
+3. **Faz Aşırı Akım**:
+   * **Olasılık:** Çok Düşük
+   * **Zaman Analizi:**
+     + PICK UP Zamanı: 0.0006s
+     + TRIP Zamanı: 0.0012s
+     + Kesici Açılma Zamanı: 0.0012s
+     + PICK UP-TRIP Süresi: 600 ms
+   * **Kanıt:**
+     - PICK UP Sinyali: "67-1 (faz asiri akim) PICK UP" = 1
+     - TRIP Sinyali: "67-1 (faz asiri akim) TRIP" = 1
+     - Kesici Durumu: Açık
+   * **Analiz:** Faz aşırı akım arızası. Arıza tetikleyen faz A'dır.
+   * **Etkilenen Bileşenler:** Faz izolatörü, koruma rölesi
+   * **Olasi Konum:** Faz izolatöründe arıza
+
+Öneriler:
+
+- **Acil Yapılacaklar:**
+  - Arızayı tespit eden PICK UP sinyallerinin tetiklemeleri kontrol edilsin.
+  - TRIP sinyallerinin tetiklemeleri kontrol edilsin.
+  - Kesici durum geçişlerinin doğru izlenmesi için kesici durum sinyalleri kontrol edilsin.
+
+- **Uzun Vadeli Çözümler:**
+  - Koruma rölesi ayarlarının revizyonu yapılmalıdır.
+  - Hat izolasyonunun kontrolü yapılmalıdır.
+  - Sistem analizi yapılmalıdır.

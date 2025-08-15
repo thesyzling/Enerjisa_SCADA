@@ -1,0 +1,92 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:34:25
+
+Veri Analizi:
+
+- Toplam kayıt sayısı: 3680
+- Zaman aralığı: 0.000000 - 2.299375 saniye
+- PICK UP ve TRIP sinyallerinin genel durumu: Hiçbir PICK UP veya TRIP sinyali yok.
+- Kesici durum geçişleri analizi: "KESICI ACIK" = 1, "KESICI KAPALI" = 0 (normal durum)
+- Kritik olayların özet analizi:
+
+| Zaman | Akımlar | PICK UP | TRIP |
+| --- | --- | --- | --- |
+| 0.0000s | IL1=75.00A, IL2=164.06A, IL3=-243.75A, Io=0.00A | Yok | Yok |
+| 0.0006s | IL1=39.84A, IL2=187.50A, IL3=-229.69A, Io=-2.34A | Yok | Yok |
+| 0.0012s | IL1=-2.34A, IL2=201.56A, IL3=-201.56A, Io=0.00A | Yok | Yok |
+| 0.0019s | IL1=-63.28A, IL2=217.97A, IL3=-157.03A, Io=0.00A | Yok | Yok |
+| 0.0025s | IL1=-117.19A, IL2=236.72A, IL3=-121.88A, Io=0.00A | Yok | Yok |
+
+Arıza Senaryoları:
+
+1. **Senaryo:** Fazlar arası kısa devre
+   - **Olasılık:** Orta
+   - **Zaman Analizi:**
+     * PICK UP Zamanı: Yok
+     * TRIP Zamanı: Yok
+     * Kesici Açılma Zamanı: Yok
+     * PICK UP-TRIP Süresi: Yok
+     * TRIP-Açılma Süresi: Yok
+   - **Kanıt:**
+     * PICK UP Sinyali: Yok
+     * TRIP Sinyali: Yok
+     * Kesici Durumu: "KESICI ACIK" = 1
+     * Akım/Gerilim Değişimleri: IL1, IL2, IL3'te ani ve yüksek akım artışı
+   - **Analiz:** Fazlar arası kısa devre muhtemelen arızalıdır. Koruma rölesinin açma komutu vermediği için PICK UP sinyali yok.
+
+2. **Senaryo:** Toprak arızası
+   - **Olasılık:** Düşük
+   - **Zaman Analizi:**
+     * PICK UP Zamanı: Yok
+     * TRIP Zamanı: Yok
+     * Kesici Açılma Zamanı: Yok
+     * PICK UP-TRIP Süresi: Yok
+     * TRIP-Açılma Süresi: Yok
+   - **Kanıt:**
+     * PICK UP Sinyali: Yok
+     * TRIP Sinyali: Yok
+     * Kesici Durumu: "KESICI ACIK" = 1
+     * Akım/Gerilim Değişimleri: Io'da artış (Io > 0.2 * nominal akım)
+   - **Analiz:** Toprak arızası muhtemelen var. Koruma rölesinin açma komutu vermediği için PICK UP sinyali yok.
+
+3. **Senaryo:** Faz aşırı akım
+   - **Olasılık:** Çok Düşük
+   - **Zaman Analizi:**
+     * PICK UP Zamanı: Yok
+     * TRIP Zamanı: Yok
+     * Kesici Açılma Zamanı: Yok
+     * PICK UP-TRIP Süresi: Yok
+     * TRIP-Açılma Süresi: Yok
+   - **Kanıt:**
+     * PICK UP Sinyali: Yok
+     * TRIP Sinyali: Yok
+     * Kesici Durumu: "KESICI ACIK" = 1
+     * Akım/Gerilim Değişimleri: IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+   - **Analiz:** Faz aşırı akım muhtemelen yok. Koruma rölesinin açma komutu vermediği için PICK UP sinyali yok.
+
+4. **Senaryo:** Kesici arızası
+   - **Olasılık:** Yüksek
+   - **Zaman Analizi:**
+     * PICK UP Zamanı: Yok
+     * TRIP Zamanı: Yok
+     * Kesici Açılma Zamanı: Yok
+     * PICK UP-TRIP Süresi: Yok
+     * TRIP-Açılma Süresi: Yok
+   - **Kanıt:**
+     * PICK UP Sinyali: Yok
+     * TRIP Sinyali: Yok
+     * Kesici Durumu: "KESICI ACIK" = 0 (kesici kapalı)
+     * Akım/Gerilim Değişimleri: Yok
+   - **Analiz:** Kesici arızası muhtemelen var. Koruma rölesinin açma komutu verdiği halde kesici açılmamış.
+
+Öneriler:
+
+- **Acil Yapılacaklar:**
+  * Arıza nedenini hızlıca tespit etme
+  * Kesici durumu kontrolü
+  * Geçici koruma ayarları
+
+- **Uzun Vadeli Çözümler:**
+  * Koruma rölesi ayarlarının revizyonu
+  * Hat izolasyonunun kontrolü
+  * Sistem analizi

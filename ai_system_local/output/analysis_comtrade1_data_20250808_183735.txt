@@ -1,0 +1,128 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:37:35
+
+Veri Analizi
+================
+
+### Veri Özetleri
+
+*   Toplam Kayıt Sayısı: 3680
+*   Zaman Aralığı: 0.000000 - 2.299375 saniye
+
+### PICK UP Sinyalleri
+
+PICK UP sinyalleri, koruma rölesinin arıza tespit ettiği anı gösterir. Bu sinyal aktif olduğunda, koruma rölesi arızayı tespit etmiş ve kesici açılma komutunu vermiştir.
+
+*   Hiçbir PICK UP sinyali yok.
+
+### TRIP Sinyalleri
+
+TRIP sinyalleri, koruma rölesinin kesiciye açma komutu verdiği anı gösterir. Bu sinyal aktif olduğunda, kesici açılmış ve arızayı önlemek için çalışmaya başlamıştır.
+
+*   Hiçbir TRIP sinyali yok.
+
+### Kritik Olaylar
+
+1.  **Zaman:** 0.0000s
+    *   **Akımlar:**
+        *   IL1 = -11.72A
+        *   IL2 = 4.69A
+        *   IL3 = 4.69A
+        *   Io = 0.00A
+    *   **PICK UP:** Yok
+    *   **TRIP:** Yok
+
+2.  **Zaman:** 0.0006s
+    *   **Akımlar:**
+        *   IL1 = -11.72A
+        *   IL2 = 0.00A
+        *   IL3 = 7.03A
+        *   Io = 0.00A
+    *   **PICK UP:** Yok
+    *   **TRIP:** Yok
+
+3.  **Zaman:** 0.0012s
+    *   **Akımlar:**
+        *   IL1 = -16.41A
+        *   IL2 = 2.34A
+        *   IL3 = 11.72A
+        *   Io = 0.00A
+    *   **PICK UP:** Yok
+    *   **TRIP:** Yok
+
+4.  **Zaman:** 0.0019s
+    *   **Akımlar:**
+        *   IL1 = -18.75A
+        *   IL2 = 2.34A
+        *   IL3 = 11.72A
+        *   Io = 0.00A
+    *   **PICK UP:** Yok
+    *   **TRIP:** Yok
+
+5.  **Zaman:** 0.0025s
+    *   **Akımlar:**
+        *   IL1 = -14.06A
+        *   IL2 = -2.34A
+        *   IL3 = 11.72A
+        *   Io = 0.00A
+    *   **PICK UP:** Yok
+    *   **TRIP:** Yok
+
+Arıza Senaryoları ve Sinyal Analizi
+---------------------------------
+
+### Fazlar Arası Kısa Devre (AB, BC, CA)
+
+*   IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı)
+*   "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+*   "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+*   Kesicinin açılması ("KESICI ACIK" = 1)
+*   Gerilimlerde belirgin düşüş
+
+### Toprak Arızası (AN, BN, CN)
+
+*   Io'da artış (Io > 0.2 * nominal akım)
+*   "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+*   "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+*   Kesicinin açılması ("KESICI ACIK" = 1)
+*   Gerilimlerde dengesizlik
+
+### Faz Aşırı Akım
+
+*   IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+*   "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+*   "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+*   Kesicinin açılması ("KESICI ACIK" = 1)
+*   Gerilimlerde küçük düşüş
+
+### Kesici Arızası
+
+*   TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+*   Kesici açılmış ancak TRIP sinyali yok
+*   Kesici durum sinyallerinin çelişkili olması (her ikisi de 1 veya 0)
+
+### Zaman Analizi
+
+*   PICK UP ve TRIP sinyalleri arasındaki zaman farkını ölç
+*   Normalde bu süre koruma rölesi ayarlanan gecikme süresi kadardır (genellikle 20-500 ms)
+*   Sürenin çok kısa olması: Ani arıza veya yanlış tetikleme
+*   Sürenin çok uzun olması: Koruma rölesi ayar sorunu
+*   Kesicinin açılma süresini analiz et (TRIP sinyali ile kesici durum değişimi arasındaki süre)
+
+### Olası Arızalar ve Sinyal İlişkisi
+
+*   PICK UP var ancak TRIP yok: Koruma rölesi arıza tespit etti ancak açma komutu vermedi (potansiyel röle arızası)
+*   TRIP var ancak PICK UP yok: Kesici açıldı ancak koruma rölesi tarafından tetiklenmedi (dışarıdan müdahale veya sinyal hatası)
+*   Kesici açıldı ancak TRIP sinyali yok: Kesici mekanik arıza veya dışarıdan açılmış olabilir
+
+### Acil ve Uzun Vadeli Çözümler
+
+- **Acil Çözümler:**
+  * Arıza nedenini hızlıca tespit etme
+  * Kesici durum kontrolü
+  * Geçici koruma ayarları
+
+- **Uzun Vadeli Çözümler:**
+  * Koruma rölesi ayarlarının revizyonu
+  * Hat izolasyonunun kontrolü
+  * Sistem analizi

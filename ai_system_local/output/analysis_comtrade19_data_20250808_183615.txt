@@ -1,0 +1,95 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:36:15
+
+**Veri Analizi Raporu**
+
+**Toplam Kayıt Sayısı:** 3680
+**Zaman Aralığı:** 0.000000 - 2.299375 saniye
+
+**PICK UP ve TRIP Sinyallerinin Genel Durumu:**
+- PICK UP sinyali hiç aktif olmadı.
+- TRIP sinyali de hiç aktif olmadı.
+
+**Kesici Durum Geçişleri Analizi:**
+- Kesicinin açık/kapalı durum geçişleri analiz edilemedi, çünkü kesici durum sinyalleri (KESICI ACIK/KAPALI) hiç aktif olmadı.
+
+**Kritik Olaylar Analizi:**
+1. **Zaman:** 0.2013s
+   - Akımlar: IL1=-13.28A, IL2=-1.56A, IL3=20.31A, Io=6.25A
+   - PICK UP: Yok
+   - TRIP: Yok
+
+2. **Zaman:** 0.2019s
+   - Akımlar: IL1=-103.91A, IL2=20.31A, IL3=66.41A, Io=-16.41A
+   - PICK UP: Yok
+   - TRIP: Yok
+
+3. **Zaman:** 0.2025s
+   - Akımlar: IL1=-148.44A, IL2=36.72A, IL3=119.53A, Io=8.59A
+   - PICK UP: Yok
+   - TRIP: Yok
+
+4. **Zaman:** 0.2031s
+   - Akımlar: IL1=-184.38A, IL2=21.88A, IL3=157.81A, Io=-3.91A
+   - PICK UP: Yok
+   - TRIP: Yok
+
+5. **Zaman:** 0.2037s
+   - Akımlar: IL1=-176.56A, IL2=-12.50A, IL3=188.28A, Io=-0.78A
+   - PICK UP: Yok
+   - TRIP: Yok
+
+**Arıza Senaryoları Analizi:**
+
+### 1. Fazlar Arası Kısa Devre (AB, BC, CA)
+
+- **Olasılık:** Orta
+- **Kanıt:**
+  * IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı)
+  * "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+  * "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+  * Kesicinin açılması ("KESICI ACIK" = 1)
+  * Gerilimlerde belirgin düşüş
+
+### 2. Toprak Arızası (AN, BN, CN)
+
+- **Olasılık:** Düşük
+- **Kanıt:**
+  * Io'da artış (Io > 0.2 * nominal akım)
+  * "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+  * "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+  * Kesicinin açılması ("KESICI ACIK" = 1)
+  * Gerilimlerde dengesizlik
+
+### 3. Faz Aşırı Akım
+
+- **Olasılık:** Çok Düşük
+- **Kanıt:**
+  * IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+  * "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+  * "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+  * Kesicinin açılması ("KESICI ACIK" = 1)
+  * Gerilimlerde küçük düşüş
+
+### 4. Kesici Arızası
+
+- **Olasılık:** Yüksek
+- **Kanıt:**
+  * TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+  * Kesici açılmış ancak TRIP sinyali yok
+  * Kesici durum sinyallerinin çelişkili olması (her ikisi de 1 veya 0)
+
+**Öneriler:**
+
+### Acil Yapılacaklar:
+
+- **Koruma Rölesi Ayarlarının Revizyonu:** Arızalı fazları tespit etmek için koruma rölesinin ayarlarını revize et.
+- **Hat İzolasyonunun Kontrolü:** Toprak arızasını önlemek için hat izolasyonunu kontrol et.
+
+### Uzun Vadeli Çözümler:
+
+- **Sistem Analizi:** Sistem analizini yap, arızalı bileşenleri tespit edin ve gerekli onarımları gerçekleştirin.
+- **Koruma Rölesi Değiştirme:** Arızalı koruma rölesini değiştirin.
+
+**Eksik Veriler ve Sınırlamalar:**
+- Gerilim değerlerinin eksik olması, arıza analizi için kritiktir.

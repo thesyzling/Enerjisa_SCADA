@@ -1,0 +1,120 @@
+## SCADA Arıza Analiz Raporu
+## Tarih: 2025-08-08 18:39:17
+
+**Veri Analizi**
+
+Toplam Kayıt Sayısı: 3680
+Zaman Aralığı: 0.000000 - 2.299375 saniye
+
+PICK UP Sinyalleri:
+- Hiç PICK UP sinyali yok
+
+TRIP Sinyalleri:
+- Hiç TRIP sinyali yok
+
+Kritik Olaylar:
+
+1. Zaman: 0.2069s
+   Akımlar: IL1=53.91A, IL2=-0.78A, IL3=-40.62A, Io=13.28A
+   PICK UP: Yok
+   TRIP: Yok
+
+2. Zaman: 0.2075s
+   Akımlar: IL1=110.94A, IL2=-1.56A, IL3=-120.31A, Io=-10.16A
+   PICK UP: Yok
+   TRIP: Yok
+
+3. Zaman: 0.2081s
+   Akımlar: IL1=161.72A, IL2=-15.62A, IL3=-153.91A, Io=-7.03A
+   PICK UP: Yok
+   TRIP: Yok
+
+4. Zaman: 0.2087s
+   Akımlar: IL1=211.72A, IL2=-3.12A, IL3=-203.12A, Io=6.25A
+   PICK UP: Yok
+   TRIP: Yok
+
+5. Zaman: 0.2094s
+   Akımlar: IL1=200.00A, IL2=19.53A, IL3=-226.56A, Io=-6.25A
+   PICK UP: Yok
+   TRIP: Yok
+
+
+
+### Analiz Talimatları
+
+1. **Sütun İsimlerinin Doğru Tanımlanması:**
+   - CSV dosyalarında aşağıdaki kritik sütunlar mevcuttur:
+     * **PICK UP Sinyalleri:** "67-1 (faz asiri akim) PICK UP", "67-2 (faz kisa devre) PICK UP", "67-N1 (toprak yonlu koruma) PICK UP", "67-N2 (toprak kisa devre) PICK UP", "Kesintili Toprak PICK UP"
+     * **TRIP Sinyalleri:** "67-1 (faz asiri akim) TRIP", "67-2 (faz kisa devre) TRIP", "67-N1 (toprak yonlu koruma) TRIP", "67-N2 (toprak kisa devre) TRIP", "Kesintili Toprak TRIP"
+     * **Kesici Durum Sinyalleri:** "KESICI ACIK", "KESICI KAPALI"
+     * **Akım ve Gerilim Değerleri:** IL1, IL2, IL3, Io, U1, U2, U3, Uo
+   - PICK UP sinyalleri genellikle arıza tespit edildiğinde 1 değerini alır (0 normal durum)
+   - TRIP sinyalleri genellikle kesicinin açılma komutu verildiğinde 1 değerini alır (0 normal durum)
+   - Kesici durum sinyalleri:
+     * "KESICI ACIK" = 1: Kesici açık konumda
+     * "KESICI KAPALI" = 1: Kesici kapalı konumda
+     * Normalde bu iki sinyal birbirinin tersi olmalıdır
+
+2. **PICK UP ve TRIP Sinyal İlişkisi:**
+   - PICK UP sinyali, koruma rölesinin arıza tespit ettiği anı gösterir
+   - TRIP sinyali, koruma rölesinin kesiciye açma komutu verdiği anı gösterir
+   - Normal bir arıza senaryosunda:
+     * Önce PICK UP sinyali aktif olur (1 değerini alır)
+     * Ardından belirli bir gecikme süresi sonra TRIP sinyali aktif olur
+     * TRIP sinyalinin aktif olmasıyla kesici açılır ("KESICI ACIK" sinyali 1 olur)
+   - **Kritik Durumlar:**
+     * PICK UP var ancak TRIP yok: Koruma rölesi arıza tespit etti ancak açma komutu vermedi (potansiyel röle arızası)
+     * TRIP var ancak PICK UP yok: Kesici açıldı ancak koruma rölesi tarafından tetiklenmedi (dışarıdan müdahale veya sinyal hatası)
+     * Kesici açıldı ancak TRIP sinyali yok: Kesici mekanik arıza veya dışarıdan açılmış olabilir
+
+3. **Arıza Senaryoları ve Sinyal Analizi:**
+   - **Fazlar arası kısa devre (AB, BC, CA):**
+     * IL1, IL2, IL3'te ani ve yüksek akım artışı (nominal akımın 2-10 katı)
+     * "67-2 (faz kisa devre) PICK UP" sinyalinin aktif olması
+     * "67-2 (faz kisa devre) TRIP" sinyalinin aktif olması
+     * Kesicinin açılması ("KESICI ACIK" = 1)
+     * Gerilimlerde belirgin düşüş
+
+   - **Toprak arızası (AN, BN, CN):**
+     * Io'da artış (Io > 0.2 * nominal akım)
+     * "67-N1" veya "67-N2" PICK UP sinyallerinin aktif olması
+     * "67-N1" veya "67-N2" TRIP sinyallerinin aktif olması
+     * Kesicinin açılması ("KESICI ACIK" = 1)
+     * Gerilimlerde dengesizlik
+
+   - **Faz aşırı akım:**
+     * IL1, IL2, IL3'te yüksek akım (nominal akımın 1.2-2 katı)
+     * "67-1 (faz asiri akim) PICK UP" sinyalinin aktif olması
+     * "67-1 (faz asiri akim) TRIP" sinyalinin aktif olması
+     * Kesicinin açılması ("KESICI ACIK" = 1)
+     * Gerilimlerde küçük düşüş
+
+   - **Kesici Arızası:**
+     * TRIP sinyali var ancak kesici açılmamış ("KESICI ACIK" = 0)
+     * Kesici açılmış ancak TRIP sinyali yok
+     * Kesici durum sinyallerinin çelişkili olması (her ikisi de 1 veya 0)
+
+4. **Zaman Analizi:**
+   - PICK UP ve TRIP sinyalleri arasındaki zaman farkını ölç
+   - Normalde bu süre koruma rölesi ayarlanan gecikme süresi kadardır (genellikle 20-500 ms)
+   - Sürenin çok kısa olması: Ani arıza veya yanlış tetikleme
+   - Sürenin çok uzun olması: Koruma rölesi ayar sorunu
+   - Kesicinin açılma süresini analiz et (TRIP sinyali ile kesici durum değişimi arasındaki süre)
+
+5. Her senaryo için:
+   - Olasılığı belirt (Yüksek, Orta, Düşük, Çok Düşük) - veri özetindeki kanıtlara dayanarak
+   - Kanıtları veri özetinden al (PICK UP/TRIP sinyal tetiklemeleri, akım/gerilim değişimleri)
+   - Analiz: Arıza tipi ve nedeni, etkilenen bileşenler, olası konum, sistem tepkisinin uygunluğu
+
+### Öneriler
+
+- **Acil Yapılacaklar:**
+  * PICK UP sinyallerinin tetiklendiği her an kesicinin durumunu kontrol etmek
+  * TRIP sinyallerinin tetiklendiği her an koruma rölesinin durumunu kontrol etmek
+  * Sistem tepkisinin uygunluğunu analiz etmek
+
+- **Uzun Vadeli Çözümler:**
+  * Koruma rölesi ayarlarının optimize edilmesi
+  * Kesici ve koruma rölesinin düzenli bakımı yapılması
+  * Sistem tepkisinin iyileştirilmesi için gerekli adımların atılması
