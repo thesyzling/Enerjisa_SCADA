@@ -79,7 +79,7 @@ Start the server: ollama serve (run in a separate terminal).
 🚀 Usage
 
 Clone the repo:
-git clone https://github.com/yourusername/scada-fault-analyzer.git
+git clone https://github.com/thesyzling/scada-fault-analyzer.git
 cd scada-fault-analyzer
 
 
