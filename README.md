@@ -31,7 +31,6 @@ Bu proje, **COMTRADE formatındaki** olay dosyalarını otomatik olarak **CSV’
 ## 📸 Arayüz Görselleri
 
 >![Demo](Resim1.png)
->![Arayuz](Resim2.png)
 >![Arayuz2](Resim3.png)
 
 
