@@ -45,7 +45,8 @@ Enerjisa_SCADA/
 
 📸 Arayüz Görselleri
 
-
+>![Demo](Resim1.png)
+>![Arayuz2](Resim3.png)
 
 
 ⚙️ Kurulum
