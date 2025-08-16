@@ -30,16 +30,9 @@ Bu proje, **COMTRADE formatındaki** olay dosyalarını otomatik olarak **CSV’
 
 ## 📸 Arayüz Görselleri
 
-> Bu kısımda kendi ekran görüntülerini/çizimlerini koyabilirsin.  
+>
 
-- **Ana Panel**  
-  ![Ana Panel](docs/screenshots/main_ui.png)
 
-- **Grafik Örneği**  
-  ![Grafik](docs/screenshots/graph.png)
-
-- **LLM Analiz Çıktısı**  
-  ![Analiz](docs/screenshots/analysis.png)
 
 ---
 
