@@ -1,53 +1,8 @@
-# Enerjisa_SCADA
+⚡ Enerjisa SCADA – Yapay Zekâ Destekli SCADA Analiz Arayüzü
 
-Yerel LLM tabanlı **SCADA arıza analizi** arayüzü.  
-Bu proje, **COMTRADE formatındaki** olay dosyalarını otomatik olarak **CSV’ye dönüştürür**, sinyalleri görselleştirir ve **yerel LLM** kullanarak mühendislik odaklı rapor üretir.
+Bu proje, SCADA sistemlerinden alınan verilerin yapay zekâ ile analiz edilerek kullanıcı dostu bir arayüzde görselleştirilmesini amaçlamaktadır.
+Enerji sektöründe gerçek zamanlı veri analizi, erken arıza tespiti ve operasyonel verimlilik için kritik bir rol oynar. Biz de bu projede yerel LLM (Ollama) + Python analiz altyapısı + React tabanlı arayüz ile bu süreci hayata geçirdik.
 
----
-
-## ✨ Özellikler
-
-- **Yerel LLM ile analiz** (Ollama üzerinden)  
-  - Olay özeti  
-  - Olası arıza tipi & olasılık  
-  - Kanıt / göstergeler  
-  - İşletme & bakım önerileri  
-
-- **COMTRADE → CSV dönüşümü**  
-  - `.cfg + .dat` dosyalarından zaman-serisi CSV üretir  
-  - Kanal isimlerini ve metaveriyi korur  
-
-- **Web arayüzü**  
-  - Dosya yükleme (COMTRADE veya CSV)  
-  - Trend grafikleri (akım/gerilim, dijital sinyaller)  
-  - LLM analiz çıktısı paneli  
-
-- **Tamamen lokal çalışma**  
-  - İnternete ihtiyaç duymaz  
-  - Veriler dışarı çıkmaz  
-
----
-
-## 📸 Arayüz Görselleri
-
->![Demo](Resim1.png)
->![Arayuz2](Resim3.png)
-
-
-
-
----
-
-## 🛠 Kurulum
-
-### Gereksinimler
-- Python 3.10+
-- Ollama (LLM için) → [https://ollama.com](https://ollama.com)
-- (Opsiyonel) NVIDIA GPU
-
-### Adımlar
-
-```bash
 🚀 Özellikler
 
 SCADA Veri Analizi:
@@ -84,7 +39,14 @@ Enerjisa_SCADA/
 ├── data/               # Örnek SCADA verileri (CSV)
 ├── outputs/            # Grafikler, rapor çıktıları
 ├── Resim1.gif          # Proje arayüzünden örnek görsel
+├── Resim1.png          # Ek arayüz görseli
+├── Resim3.png          # Ek arayüz görseli
 └── README.md           # Bu dosya
+
+📸 Arayüz Görselleri
+
+
+
 
 ⚙️ Kurulum
 1. Depoyu klonla
@@ -112,3 +74,29 @@ Frontend’i çalıştır (React arayüz).
 SCADA verilerini data/ klasörüne yerleştir.
 
 Tarayıcıdan http://localhost:3000 adresine git.
+
+📊 Örnek Çıktı
+
+Zaman serisi grafikler
+
+Arıza tahminleri
+
+Yapay zekâ tarafından üretilen raporlar
+
+💡 Katkı
+
+Projeye katkıda bulunmak isteyenler için:
+
+Fork edin
+
+Yeni bir dal açın (git checkout -b feature/yenilik)
+
+Değişiklikleri commit edin
+
+PR açın 🎉
+
+📬 İletişim
+
+Projeyle ilgili sorular veya öneriler için:
+👉 GitHub Issues
+👉 ya da doğrudan bizimle iletişime geçebilirsiniz.
