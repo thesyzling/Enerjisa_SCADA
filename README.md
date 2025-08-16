@@ -30,7 +30,7 @@ Bu proje, **COMTRADE formatındaki** olay dosyalarını otomatik olarak **CSV’
 
 ## 📸 Arayüz Görselleri
 
->
+>![Demo](Resim1.gif)
 
 
 
