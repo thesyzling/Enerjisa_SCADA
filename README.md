@@ -48,95 +48,67 @@ Bu proje, **COMTRADE formatındaki** olay dosyalarını otomatik olarak **CSV’
 ### Adımlar
 
 ```bash
-# Repo klonla
+🚀 Özellikler
+
+SCADA Veri Analizi:
+Ölçüm verilerinden yapay zekâ tabanlı çıkarımlar ve hata tespitleri.
+
+Yerel LLM Entegrasyonu (Ollama):
+SCADA verilerini doğal dilde açıklama, raporlama ve özetleme.
+
+React Arayüz:
+Son kullanıcıya sade, anlaşılır ve görsel olarak zengin bir dashboard.
+
+Grafiksel Görselleştirme:
+Zaman serisi verilerinin çizelgeler ve grafiklerle sunulması.
+
+Genişletilebilir Yapı:
+Yeni sensörler, ek veri kaynakları veya model güncellemeleri kolayca eklenebilir.
+
+🛠 Kullanılan Teknolojiler
+
+Backend: Python (pandas, scikit-learn, vb.)
+
+Yapay Zekâ: Ollama (Yerel LLM entegrasyonu)
+
+Frontend: React
+
+Veri Kaynakları: SCADA CSV dosyaları
+
+📂 Proje Yapısı
+Enerjisa_SCADA/
+│
+├── backend/            # Python tabanlı analiz kodları
+├── frontend/           # React arayüzü
+├── models/             # Yapay zekâ modelleri (Ollama, ML, vb.)
+├── data/               # Örnek SCADA verileri (CSV)
+├── outputs/            # Grafikler, rapor çıktıları
+├── Resim1.gif          # Proje arayüzünden örnek görsel
+└── README.md           # Bu dosya
+
+⚙️ Kurulum
+1. Depoyu klonla
 git clone https://github.com/thesyzling/Enerjisa_SCADA.git
 cd Enerjisa_SCADA
 
-# Sanal ortam
-python -m venv .venv
-source .venv/bin/activate   # Linux/macOS
-.venv\Scripts\activate      # Windows
-
-# Bağımlılıklar
+2. Backend (Python) ortamını kur
+cd backend
 pip install -r requirements.txt
-Ollama Modeli Yükle
-bash
-Kopyala
-Düzenle
-ollama pull llama3
-.env dosyasında model adını ayarla:
 
-env
-Kopyala
-Düzenle
-LLM_MODEL=llama3
-🚀 Çalıştırma
-Backend
-bash
-Kopyala
-Düzenle
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-Arayüz
-bash
-Kopyala
-Düzenle
-cd ui
+3. Frontend (React) ortamını kur
+cd frontend
 npm install
-npm run dev
-Ardından tarayıcıda aç: http://localhost:3000
+npm start
 
-📂 Klasör Yapısı
-bash
-Kopyala
-Düzenle
-Enerjisa_SCADA/
-├─ app/                 # Backend (FastAPI)
-│  ├─ main.py
-│  ├─ services/
-│  │  ├─ comtrade_io.py   # COMTRADE → CSV dönüşüm
-│  │  ├─ llm_client.py    # Ollama istemcisi
-│  │  └─ analysis.py      # Analiz pipeline
-├─ ui/                  # Web arayüzü
-├─ data/
-│  ├─ raw/              # Yüklenen COMTRADE
-│  └─ processed/        # CSV çıktıları
-├─ scripts/
-│  └─ comtrade_to_csv.py
-├─ docs/
-│  └─ screenshots/      # Görseller (UI, grafik, rapor)
-└─ README.md
-⚡ COMTRADE Dönüşümü
-Komut satırından hızlı dönüşüm:
+4. Ollama’yı kur ve çalıştır
+ollama run llama3
 
-bash
-Kopyala
-Düzenle
-python scripts/comtrade_to_csv.py \
-  --cfg data/raw/OLAY.cfg \
-  --dat data/raw/OLAY.dat \
-  --out data/processed/OLAY.csv
-📊 LLM Analiz Çıktısı Formatı
-LLM, profesyonel SCADA mühendisliği terminolojisiyle şu başlıklarda çıktı üretir:
+▶️ Çalıştırma
 
-Olay Özeti
+Backend servisini başlat (Python analiz).
 
-Olası Arıza Tipi ve Olasılık (%)
+Frontend’i çalıştır (React arayüz).
 
-Kanıt/İndikasyonlar
+SCADA verilerini data/ klasörüne yerleştir.
 
-Öneriler (İşletme/Bakım)
-
-Varsayımlar / Sınırlar
-
-Örnek ekran:
-
-🛣 Yol Haritası
- Gelişmiş öznitelik çıkarımı (RMS, harmonikler, frekans)
-
- Otomatik olay penceresi seçimi
-
- Çoklu LLM desteği (model seçimi UI’dan)
-
- Rapor dışa aktarma (PDF, Word)
-
- Kullanıcı & rol yönetimi
+Tarayıcıdan http://localhost:3000 adresine git.
