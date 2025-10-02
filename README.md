@@ -33,15 +33,15 @@ Veri Kaynakları: SCADA CSV dosyaları
 📂 Proje Yapısı
 Enerjisa_SCADA/
 │
-├── backend/            # Python tabanlı analiz kodları
-├── frontend/           # React arayüzü
-├── models/             # Yapay zekâ modelleri (Ollama, ML, vb.)
-├── data/               # Örnek SCADA verileri (CSV)
-├── outputs/            # Grafikler, rapor çıktıları
-├── Resim1.gif          # Proje arayüzünden örnek görsel
-├── Resim1.png          # Ek arayüz görseli
-├── Resim3.png          # Ek arayüz görseli
-└── README.md           # Bu dosya
+├── backend/            
+├── frontend/           
+├── models/             
+├── data/               
+├── outputs/            
+├── Resim1.gif          
+├── Resim1.png          
+├── Resim3.png          
+└── README.md           
 
 📸 Arayüz Görselleri
 
@@ -95,9 +95,3 @@ Yeni bir dal açın (git checkout -b feature/yenilik)
 Değişiklikleri commit edin
 
 PR açın 🎉
-
-📬 İletişim
-
-Projeyle ilgili sorular veya öneriler için:
-👉 GitHub Issues
-👉 ya da doğrudan bizimle iletişime geçebilirsiniz.
