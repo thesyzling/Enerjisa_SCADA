@@ -1,0 +1,23 @@
+2025-10-21 22:30:17,112 - INFO (Finetuned) - Finetuned model ile 41 adet dosya analiz edilecek.
+2025-10-21 22:30:17,112 - INFO (Finetuned) - Ýþleniyor: 05040001.csv
+2025-10-21 22:30:17,141 - INFO (Finetuned) - Ollama API ile uzman model 'enerjisa-analyzer' kullanýlarak analiz baþlatýlýyor...
+2025-10-21 22:30:21,239 - ERROR (Finetuned) - Analiz hatasý: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2A8D04C50>: Failed to establish a new connection: [WinError 10061] Hedef makine etkin olarak reddettiðinden baðlantý kurulamadý'))
+2025-10-21 22:30:21,240 - INFO (Finetuned) - Sonuçlar kaydedildi: C:\Users\bar--\PycharmProjects\PythonProject\fine_tune_output\analysis_05040001_FÝNETUNED.txt
+2025-10-21 22:30:21,240 - INFO (Finetuned) - Ýþleniyor: 05040004.csv
+2025-10-21 22:30:21,262 - INFO (Finetuned) - Ollama API ile uzman model 'enerjisa-analyzer' kullanýlarak analiz baþlatýlýyor...
+2025-10-21 22:30:25,324 - ERROR (Finetuned) - Analiz hatasý: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2A8D05850>: Failed to establish a new connection: [WinError 10061] Hedef makine etkin olarak reddettiðinden baðlantý kurulamadý'))
+2025-10-21 22:30:25,325 - INFO (Finetuned) - Sonuçlar kaydedildi: C:\Users\bar--\PycharmProjects\PythonProject\fine_tune_output\analysis_05040004_FÝNETUNED.txt
+2025-10-21 22:30:25,325 - INFO (Finetuned) - Ýþleniyor: 05040005.csv
+2025-10-21 22:30:25,346 - INFO (Finetuned) - Ollama API ile uzman model 'enerjisa-analyzer' kullanýlarak analiz baþlatýlýyor...
+2025-10-21 22:30:29,386 - ERROR (Finetuned) - Analiz hatasý: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2A8D06600>: Failed to establish a new connection: [WinError 10061] Hedef makine etkin olarak reddettiðinden baðlantý kurulamadý'))
+2025-10-21 22:30:29,388 - INFO (Finetuned) - Sonuçlar kaydedildi: C:\Users\bar--\PycharmProjects\PythonProject\fine_tune_output\analysis_05040005_FÝNETUNED.txt
+2025-10-21 22:30:29,388 - INFO (Finetuned) - Ýþleniyor: 05050033.csv
+2025-10-21 22:30:29,411 - INFO (Finetuned) - Ollama API ile uzman model 'enerjisa-analyzer' kullanýlarak analiz baþlatýlýyor...
+2025-10-21 22:30:33,472 - ERROR (Finetuned) - Analiz hatasý: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2A8D06D80>: Failed to establish a new connection: [WinError 10061] Hedef makine etkin olarak reddettiðinden baðlantý kurulamadý'))
+2025-10-21 22:30:33,474 - INFO (Finetuned) - Sonuçlar kaydedildi: C:\Users\bar--\PycharmProjects\PythonProject\fine_tune_output\analysis_05050033_FÝNETUNED.txt
+2025-10-21 22:30:33,474 - INFO (Finetuned) - Ýþleniyor: 050E0172.csv
+2025-10-21 22:30:33,496 - INFO (Finetuned) - Ollama API ile uzman model 'enerjisa-analyzer' kullanýlarak analiz baþlatýlýyor...
+2025-10-21 22:30:37,539 - ERROR (Finetuned) - Analiz hatasý: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2A8D076E0>: Failed to establish a new connection: [WinError 10061] Hedef makine etkin olarak reddettiðinden baðlantý kurulamadý'))
+2025-10-21 22:30:37,540 - INFO (Finetuned) - Sonuçlar kaydedildi: C:\Users\bar--\PycharmProjects\PythonProject\fine_tune_output\analysis_050E0172_FÝNETUNED.txt
+2025-10-21 22:30:37,540 - INFO (Finetuned) - Ýþleniyor: 050E0179.csv
+2025-10-21 22:30:37,562 - INFO (Finetuned) - Ollama API ile uzman model 'enerjisa-analyzer' kullanýlarak analiz baþlatýlýyor...
